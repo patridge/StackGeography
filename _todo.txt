@@ -11,9 +11,6 @@ Switch to sending IDs to $.stackExchangeApi.get* as an array to allow for debug 
 
 Register app with stackapps.com with [apps] tag.
 
-Set up Google Analytics for stackgeography.com.
-Add GA to stackgeography.com.
-
 Closure compile all JS files, or use as much CDN links as possilbe and minify what's left.
   // ==ClosureCompiler==
   // @compilation_level SIMPLE_OPTIMIZATIONS
