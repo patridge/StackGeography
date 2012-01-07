@@ -58,8 +58,8 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
         });
         return getApiDataPromise(url);
     };
-        $.stackExchangeApi.getQuestions.defaults = $.extend({}, $.stackExchangeApi.typicalDefaults, {
-        sort: "creation",
+    $.stackExchangeApi.getQuestions.defaults = $.extend({}, $.stackExchangeApi.typicalDefaults, {
+        sort: "creation"
     });
     $.stackExchangeApi.getUsers = function (options) {
         var opts = $.extend({}, $.stackExchangeApi.getUsers.defaults, options),
@@ -71,17 +71,17 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
         return getApiDataPromise(url);
     };
     $.stackExchangeApi.getUsers.defaults = $.extend({}, $.stackExchangeApi.typicalDefaults, {
-        sort: "reputation",
+        sort: "reputation"
     });
     $.stackExchangeApi.getAllSitesWithMultipleRequests = function (options) {
         // Currently only works for first 200 sites until I make it all recursively awesome.
         var allSiteItems,
             resultDfd = $.Deferred();
-        $.stackExchangeApi.getSites(options).done(function (data) {
-            allSiteItems = data.items;
-        }).done(function (data) {
-            $.stackExchangeApi.getSites($.extend({}, options, { page: 1 })).done(function (data) {
-                allSiteItems = allSiteItems.concat(data.items);
+        $.stackExchangeApi.getSites(options).done(function (page1Data) {
+            allSiteItems = page1Data.items;
+        }).done(function () {
+            $.stackExchangeApi.getSites($.extend({}, options, { page: 1 })).done(function (page2Data) {
+                allSiteItems = allSiteItems.concat(page2Data.items);
                 resultDfd.resolve(allSiteItems);
             });
         }).fail(resultDfd.reject);
@@ -98,7 +98,7 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
         return getApiDataPromise(url);
     };
     $.stackExchangeApi.getSites.defaults = {
-        pagesize: 100, // SE default: 30
+        pagesize: 100 // SE default: 30
         //page: 1,
         //key: yourApiKey
     };
@@ -130,8 +130,7 @@ $(function () {
         mapMarkerImage,
         mapMarkerImageShadow,
         createMapMarker = function (id, location, title, infoWindow) {
-            var marker,
-                markerImage;
+            var marker;
 
             if (!location) {
                 return;
@@ -234,7 +233,6 @@ $(function () {
                         ids: userIds.join(";")
                     });
 
-                // TODO: break up into 100-sized chunks (https://api.stackexchange.com/docs/vectors)
                 getUsers.done(function (data) {
                     var users = JSLINQ(data.items);
                     questions.Select(function (question) {
@@ -250,7 +248,7 @@ $(function () {
                             infoWindowContent = $.render($.extend(questionWithUserInfo, { site: siteInfo }), infoWindowTemplate),
                             infoWindow = new google.maps.InfoWindow({
                                 content: infoWindowContent,
-                                maxWidth: 200
+                                maxWidth: 250
                             });
 
                         if (markGeocodingFailures && (!questionWithUserInfo.user || !questionWithUserInfo.user.location)) {
@@ -308,7 +306,7 @@ $(function () {
     // Set API key for all requests.
     $.stackExchangeApi.typicalDefaults = $.extend($.stackExchangeApi.typicalDefaults, {
         key: apiKey
-    })
+    });
     $stopPolling.click(function (e) {
         stopPoll();
         e.preventDefault();
@@ -366,7 +364,7 @@ $(function () {
             $siteCheckboxes.first().find("input").attr("checked", "checked");
             $("#sites").html($siteCheckboxes);
             $startPolling.click();
-            
+
             // Build CSS for site tag colors.
             //JSLINQ($("#sites input")).Select(function (item) { return ".site-" + $(item).attr("value") + " .tags a { color: " + $(item).data("site-tag-foreground-color") + "; background-color: " + $(item).data("site-tag-background-color") + "; }"; }).ToArray().join(" ")
         });

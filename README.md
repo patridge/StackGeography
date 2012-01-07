@@ -16,7 +16,7 @@ While everything is in a fairly stable state, I do plan to add a number of addit
 * [Stack Exchange API v2.0][1]
 * [Google Maps v3][2]
 
-###Code Used
+###Projects Used
 
 * [jQuery v1.7.1 (MIT or GPL)][3] (used for just about everything)
 * [jQuery UI v1.8.16 (MIT or GPL)][4] (used for the site selection dialog)

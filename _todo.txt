@@ -6,11 +6,11 @@ Stagger marker placement/animation (deferred chaining, ideally).
 Do multiple sites "simultaneously" (with UI changes).
 Start using API filters to get rid of API items I don't need.
 Offer about page with details and link to project code on GitHub and link to AppHarbor for the free hosting.
+Minimize all CSS files.
+Switch to sending IDs to $.stackExchangeApi.get* as an array to allow for debug warning (first) and chunking into rejoined 100-per requests (later).
 
 Register app with stackapps.com with [apps] tag.
 
-Put something in README.md
-Set up appharbor for deployments from github.
 Set up Google Analytics for stackgeography.com.
 Add GA to stackgeography.com.
 

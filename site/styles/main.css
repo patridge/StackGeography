@@ -1,6 +1,7 @@
 html { height: 100% }
 body { height: 100%; margin: 0; padding: 0 }
 #map_canvas { height: 100% }
+.info-window-content { overflow: hidden; } /* eliminates odd scrollbars on map marker info windows */
 .tags a { background-color: #E0EAF1; border-bottom: 1px solid #3E6D8E; border-right: 1px solid #7F9FB6; color: #3E6D8E; font-size: 90%; line-height: 2.4; margin: 2px 2px 2px 0; padding: 3px 4px 3px 4px; text-decoration: none; white-space: nowrap; }
 .hidden { display: none; }
 #options fieldset { border: 1px solid #000; padding: 10px; }
