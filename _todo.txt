@@ -1,0 +1,17 @@
+site-based link color.
+site-based marker images.
+Refactor: extract geomarking/geocoding to API.
+Refactor: extract my APIs to external files.
+Stagger marker placement/animation.
+Do multiple sites "simultaneously".
+Start using filters to get rid of API items I don't need.
+
+Register app with stackapps.com with [apps] tag.
+
+Push files to github.
+Set up appharbor for deployments from github.
+?Get hosting for stackgeography.com.
+Set up Google Analytics for stackgeography.com.
+Add GA to stackgeography.com.
+
+Closure compile all JS files, or at least all 3rd party JS files.
