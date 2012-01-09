@@ -33,6 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="images\screenshot.png" />
     <Content Include="images\stachexchangemapmarker.png" />
     <Content Include="index.html" />
     <Content Include="scripts\googlemapsv3.js" />
