@@ -21,6 +21,27 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
 (function ($) {
     "use strict";
     var apiHost = "api.stackexchange.com",
+        idsMaxLength = 100,
+        getApiUrlWithOptions = function (url, options) {
+            // Append ids to URL.
+            var ids = options.ids || [],
+                finalUrl;
+
+            if (ids instanceof Array && ids.length > idsMaxLength) {
+                if (console && console.warn) {
+                    console.warn("Cannot pass more than " + idsMaxLength + " (http://api.stackexchange.com/docs/vectors). IDs were trimmed to " + idsMaxLength + "."); 
+                }
+                ids = ids.splice(0, idsMaxLength)
+            }
+            finalUrl = URI("https://" + apiHost + url + (ids instanceof Array ? ids.join(";") : ids));
+            // Append all options as querystring parameters.
+            $.each(options, function (i, val) {
+                if (val) {
+                    finalUrl.addSearch(i, val);
+                }
+            });
+            return finalUrl;
+        },
         getApiDataPromise = function (url) {
             var apiGetPromise = $.ajax({
                     dataType: "jsonp",
@@ -51,11 +72,7 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
     };
     $.stackExchangeApi.getQuestions = function (options) {
         var opts = $.extend({}, $.stackExchangeApi.getQuestions.defaults, options),
-            url = URI("https://" + apiHost + "/2.0/questions/" + (opts.ids || ""));
-        // Append all options as querystring parameters.
-        $.each(opts, function (i, val) {
-            url.addSearch(i, val);
-        });
+            url = getApiUrlWithOptions("/2.0/questions/", opts);
         return getApiDataPromise(url);
     };
     $.stackExchangeApi.getQuestions.defaults = $.extend({}, $.stackExchangeApi.typicalDefaults, {
@@ -63,11 +80,7 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
     });
     $.stackExchangeApi.getUsers = function (options) {
         var opts = $.extend({}, $.stackExchangeApi.getUsers.defaults, options),
-            url = URI("https://" + apiHost + "/2.0/users/" + (opts.ids || ""));
-        // Append all options as querystring parameters.
-        $.each(opts, function (i, val) {
-            url.addSearch(i, val);
-        });
+            url = getApiUrlWithOptions("/2.0/users/", opts);
         return getApiDataPromise(url);
     };
     $.stackExchangeApi.getUsers.defaults = $.extend({}, $.stackExchangeApi.typicalDefaults, {
@@ -80,7 +93,7 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
         $.stackExchangeApi.getSites(options).done(function (page1Data) {
             allSiteItems = page1Data.items;
         }).done(function () {
-            $.stackExchangeApi.getSites($.extend({}, options, { page: 1 })).done(function (page2Data) {
+            $.stackExchangeApi.getSites($.extend({}, options, { page: 2 })).done(function (page2Data) {
                 allSiteItems = allSiteItems.concat(page2Data.items);
                 resultDfd.resolve(allSiteItems);
             });
@@ -88,19 +101,10 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
         return resultDfd.promise();
     };
     $.stackExchangeApi.getSites = function (options) {
-        var opts = $.extend({}, $.stackExchangeApi.getSites.defaults, options),
-            url = URI("https://" + apiHost + "/2.0/sites/" + (opts.ids || ""));
-        // Append all options as querystring parameters.
-        $.each(opts, function (i, val) {
-            url.addSearch(i, val);
-        });
-        // NOTE: when there are more than 200 sites, this will not get them all.
+        var opts = $.extend({ pagesize: 100, key: $.stackExchangeApi.typicalDefaults.key }, options),
+            url = getApiUrlWithOptions("/2.0/sites/", opts);
+        // NOTE: when there are more than 100 sites, this will not get them all.
         return getApiDataPromise(url);
-    };
-    $.stackExchangeApi.getSites.defaults = {
-        pagesize: 100 // SE default: 30
-        //page: 1,
-        //key: yourApiKey
     };
 }(jQuery));
 
@@ -230,7 +234,7 @@ $(function () {
                     }).ToArray(),
                     getUsers = $.stackExchangeApi.getUsers({
                         site: siteInfo.filter,
-                        ids: userIds.join(";")
+                        ids: userIds
                     });
 
                 getUsers.done(function (data) {
@@ -364,9 +368,6 @@ $(function () {
             $siteCheckboxes.first().find("input").attr("checked", "checked");
             $("#sites").html($siteCheckboxes);
             $startPolling.click();
-
-            // Build CSS for site tag colors.
-            //JSLINQ($("#sites input")).Select(function (item) { return ".site-" + $(item).attr("value") + " .tags a { color: " + $(item).data("site-tag-foreground-color") + "; background-color: " + $(item).data("site-tag-background-color") + "; }"; }).ToArray().join(" ")
         });
     });
 });
