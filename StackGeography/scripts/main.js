@@ -4,6 +4,23 @@
 var googleMapsCallback; // Required for Google Maps API to call back when it thinks it is done (vs. when jQuery finishes loading the script file).
 (function ($) {
     "use strict";
+    $.extend({
+        getUserGeolocation: function () {
+            // Wrap $.jsonp in Deferred for easier consumption.
+            return $.Deferred(function (dfd) {
+                var x = $.jsonp({
+                    url: "http://www.geoplugin.net/json.gp",
+                    callbackParameter: "jsoncallback",
+                    success: dfd.resolve,
+                    error: dfd.reject
+                });
+                console.warn(x);
+            });
+        }
+    });
+}(jQuery));
+(function ($) {
+    "use strict";
     var googleMapsLoaded = $.Deferred();
     googleMapsCallback = function () {
         googleMapsLoaded.resolve();
@@ -305,9 +322,22 @@ $(function () {
                     }
                 });
             }
-        };
+        },
+        mapCenterCoordinates = { latitude: 20, longitude: 0 }, // Start with a default map center.
+        getUserCoordinates = $.Deferred(function (dfd) {
+            $.getUserGeolocation().done(function (data) {
+                if (data.geoplugin_latitude && data.geoplugin_longitude) {
+                    // Got user coordinates by IP; use them for map center.
+                    mapCenterCoordinates = { latitude: data.geoplugin_latitude, longitude: data.geoplugin_longitude };
+                    dfd.resolve();
+                } else {
+                    dfd.reject();
+                }
+            }).fail(dfd.reject);
+        }),
+        loadGoogleMaps = $.loadGoogleMaps();
 
-    // Set API key for all requests.
+    // Set Stack Exchange API app key for all requests.
     $.stackExchangeApi.typicalDefaults = $.extend($.stackExchangeApi.typicalDefaults, {
         key: apiKey
     });
@@ -346,28 +376,30 @@ $(function () {
         }
     });
 
-    $.loadGoogleMaps().done(function () {
-        mapGeocoder = new google.maps.Geocoder();
-        map = new google.maps.Map($("#map_canvas")[0], {
-            center: new google.maps.LatLng(20, 0),
-            zoom: 2,
-            mapTypeId: google.maps.MapTypeId.TERRAIN
-        });
-        mapFallbackLatLng = new google.maps.LatLng(-78.4644915, 106.83397289999994); // Antarctica
-        mapMarkerImage = new google.maps.MarkerImage("/images/stachexchangemapmarker.png", new google.maps.Size(19, 34), new google.maps.Point(0, 0), new google.maps.Point(9, 34));
-        mapMarkerImageShadow = new google.maps.MarkerImage("/images/stachexchangemapmarker.png", new google.maps.Size(29, 34), new google.maps.Point(28, 0), new google.maps.Point(0, 34));
-        clearMapMarker = function (marker) {
-            marker.setMap(null);
-        };
-        $.stackExchangeApi.getAllSitesWithMultipleRequests({ pagesize: 100 }).done(function (data) {
-            // NOTE: currently omitting meta sites.
-            var siteItems = JSLINQ(data).Where(function (site) {
-                    return site.site_type !== "meta_site";
-                }),
-                $siteCheckboxes = $($("#siteCheckboxesTemplate").render(siteItems.ToArray()));
-            $siteCheckboxes.first().find("input").attr("checked", "checked");
-            $("#sites").html($siteCheckboxes);
-            $startPolling.click();
+    loadGoogleMaps.done(function () {
+        getUserCoordinates.always(function () {
+            mapGeocoder = new google.maps.Geocoder();
+            map = new google.maps.Map($("#map_canvas")[0], {
+                center: new google.maps.LatLng(mapCenterCoordinates.latitude, mapCenterCoordinates.longitude),
+                zoom: 2,
+                mapTypeId: google.maps.MapTypeId.TERRAIN
+            });
+            mapFallbackLatLng = new google.maps.LatLng(-78.4644915, 106.83397289999994); // Antarctica
+            mapMarkerImage = new google.maps.MarkerImage("/images/stachexchangemapmarker.png", new google.maps.Size(19, 34), new google.maps.Point(0, 0), new google.maps.Point(9, 34));
+            mapMarkerImageShadow = new google.maps.MarkerImage("/images/stachexchangemapmarker.png", new google.maps.Size(29, 34), new google.maps.Point(28, 0), new google.maps.Point(0, 34));
+            clearMapMarker = function (marker) {
+                marker.setMap(null);
+            };
+            $.stackExchangeApi.getAllSitesWithMultipleRequests({ pagesize: 100 }).done(function (data) {
+                // NOTE: currently omitting meta sites.
+                var siteItems = JSLINQ(data).Where(function (site) {
+                        return site.site_type !== "meta_site";
+                    }),
+                    $siteCheckboxes = $($("#siteCheckboxesTemplate").render(siteItems.ToArray()));
+                $siteCheckboxes.first().find("input").attr("checked", "checked");
+                $("#sites").html($siteCheckboxes);
+                $startPolling.click();
+            });
         });
     });
 });

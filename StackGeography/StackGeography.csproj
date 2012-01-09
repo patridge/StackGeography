@@ -40,7 +40,7 @@
     <Content Include="scripts\googlemapsv3.js" />
     <Content Include="scripts\jquery-1.7.1.min.js" />
     <Content Include="scripts\jquery-ui-1.8.16.custom.min.js" />
-    <Content Include="scripts\jquery.jsonp-2.1.4.min.js" />
+    <Content Include="scripts\jquery.jsonp-2.2.0.min.js" />
     <Content Include="scripts\JSLINQ.js" />
     <Content Include="scripts\jsrender.js" />
     <Content Include="scripts\main.js" />
