@@ -346,7 +346,7 @@ $(function () {
         mapGeocoder = new google.maps.Geocoder();
         map = new google.maps.Map($("#map_canvas")[0], {
             center: new google.maps.LatLng(20, 0),
-            zoom: 1,
+            zoom: 2,
             mapTypeId: google.maps.MapTypeId.TERRAIN
         });
         mapFallbackLatLng = new google.maps.LatLng(-78.4644915, 106.83397289999994); // Antarctica

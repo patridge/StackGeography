@@ -13,6 +13,13 @@ Options:
   max markers on map
   slider for polling rate (1 to ?)
   offer site list customization (stored to localStorage), with option to clear it
+Offer authentication to boost per-user quota.
+Use geolocation API for starting position.
+Keyboard shortcuts
+  ?: help menu
+  Esc: cancel polling
+  [some key]: start polling
+  [some key]: poll current site now
 
 Register app with stackapps.com with [apps] tag.
 

@@ -26,7 +26,7 @@ While everything is in a fairly stable state, I do plan to add a number of addit
 
 ###License
 
-I haven't decided yet between MIT and Ms-RL, and it really doesn't seem to matter unless I need to use one over the other to sub-license my work, but the code is all here for anyone to view. While the U.S. IP systems doesn't work this way, there isn't much here that someone else wouldn't come up in a similar look and feel if they had the same goal in mind.
+MIT license. If you do something cool with it, though, I'd love to hear about it.
 
 ###Author
 
