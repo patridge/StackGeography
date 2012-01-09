@@ -1,5 +1,5 @@
 /***Let JSLint know what the expected global variables are***/
-/*global jQuery, $, google, JSLINQ, URI, clearTimeout, setTimeout */
+/*global jQuery, $, console, google, JSLINQ, URI, clearTimeout, setTimeout */
 
 var googleMapsCallback; // Required for Google Maps API to call back when it thinks it is done (vs. when jQuery finishes loading the script file).
 (function ($) {
@@ -29,9 +29,9 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
 
             if (ids instanceof Array && ids.length > idsMaxLength) {
                 if (console && console.warn) {
-                    console.warn("Cannot pass more than " + idsMaxLength + " (http://api.stackexchange.com/docs/vectors). IDs were trimmed to " + idsMaxLength + "."); 
+                    console.warn("Cannot pass more than " + idsMaxLength + " (http://api.stackexchange.com/docs/vectors). IDs were trimmed to " + idsMaxLength + ".");
                 }
-                ids = ids.splice(0, idsMaxLength)
+                ids = ids.splice(0, idsMaxLength);
             }
             finalUrl = URI("https://" + apiHost + url + (ids instanceof Array ? ids.join(";") : ids));
             // Append all options as querystring parameters.
