@@ -1,59 +1,60 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-  <meta http-equiv="content-type" content="text/html; charset=UTF-8">
-  <title>StackGeography - A Stack Exchange API project</title>
-  <link rel="stylesheet" type="text/css" href="/styles/reset.css">
-  <link rel="stylesheet" type="text/css" href="/styles/main.css">
-  <script type="text/javascript">
-      var _gaq = _gaq || [];
-      _gaq.push(['_setAccount', 'UA-28151136-1']);
-      _gaq.push(['_trackPageview']);
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+	<title>StackGeography - A Stack Exchange API project</title>
+	<link rel="stylesheet" type="text/css" href="/styles/reset.css">
+	<link rel="stylesheet" type="text/css" href="/styles/main.css">
+	<link rel="stylesheet" type="text/css" media="all" href="/styles/ui-lightness/jquery-ui-1.8.16.custom.css" />
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-28151136-1']);
+		_gaq.push(['_trackPageview']);
 
-      (function () {
-          var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
-          ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
-          var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
-      })();
-</script>
+		(function () {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
 </head>
 <body>
-  <link rel="stylesheet" type="text/css" media="all" href="/styles/ui-lightness/jquery-ui-1.8.16.custom.css"/>
-<div>
-    <a id="stop-polling" href="#" class="hidden">Stop Polling</a>
-    <a id="start-polling" href="#" class="hidden">Start Polling</a>
-</div>
-<div id="options" class="hidden">
-    <ul id="sites"></ul>
-</div>
-<div id="map_canvas"></div>
-<script type="text/x-jquery-tmpl" id="infoWindowTemplate">
-    <div class="info-window-content">
-        <div class="site-{{=site.filter}}">
-            <p><a href="{{=link}}">{{=title!}}</a></p>
-            <div class="tags">
-                {{#each tags}}
-                <a style="background-color: {{=$parent.parent.data.site.tagBackgroundColor}}; color: {{=$parent.parent.data.site.tagForegroundColor}};" href="{{=$parent.parent.data.site.url}}/questions/tagged/{{=$ctx.encodeURIComponent($data)}}">{{=$data}}</a>
-                {{/each}}
-            </div>
-            <div>
-                <a href="{{=user.link}}">
-                    <img src="{{=site.url}}/users/flair/{{=user.user_id}}.png" width="208" height="58" alt="profile for {{=user.display_name}} at {{=site.name}}, Q&amp;A for {{=site.audience}}" title="profile for {{=user.display_name}} at {{=site.name}}, Q&amp;A for {{=site.audience}}">
-                </a>
-                <p>{{=user.location}}</p>
-            </div>
-        </div>
-    </div>
-</script>
-<script type="text/x-jquery-tmpl" id="siteCheckboxesTemplate">
-    <li><input type="radio" name="sites" id="{{=api_site_parameter}}" value="{{=api_site_parameter}}" data-site-url="{{=site_url}}" data-site-audience="{{=audience}}" /><label for="{{=api_site_parameter}}"><img src="{{=icon_url}}" alt="{{=name}}" />{{=name}}</label></li>
-</script>
-<script type="text/javascript" src="/scripts/JSLINQ.js"></script>
-<script type="text/javascript" src="/scripts/jquery-1.7.1.min.js"></script>
-<script type="text/javascript" src="/scripts/jquery.jsonp-2.1.4.min.js"></script>
-<script type="text/javascript" src="/scripts/jsrender.js"></script>
-<script type="text/javascript" src="/scripts/jquery-ui-1.8.16.custom.min.js"></script>
-<script type="text/javascript" src="/scripts/uri.js"></script>
-<script type="text/javascript" src="/scripts/main.js"></script>
+	<div>
+		<a id="stop-polling" href="#" class="hidden">Stop Polling</a> <a id="start-polling" href="#" class="hidden">Start Polling</a>
+	</div>
+	<div id="options" class="hidden">
+		<ul id="sites">
+		</ul>
+	</div>
+	<div id="map_canvas">
+	</div>
+	<script type="text/x-jquery-tmpl" id="infoWindowTemplate">
+		<div class="info-window-content">
+			<div class="site-{{=site.filter}}">
+				<p><a href="{{=link}}">{{=title!}}</a></p>
+				<div class="tags">
+					{{#each tags}}
+					<a style="background-color: {{=$parent.parent.data.site.tagBackgroundColor}}; color: {{=$parent.parent.data.site.tagForegroundColor}};" href="{{=$parent.parent.data.site.url}}/questions/tagged/{{=$ctx.encodeURIComponent($data)}}">{{=$data}}</a>
+					{{/each}}
+				</div>
+				<div>
+					<a href="{{=user.link}}">
+						<img src="{{=site.url}}/users/flair/{{=user.user_id}}.png" width="208" height="58" alt="profile for {{=user.display_name}} at {{=site.name}}, Q&amp;A for {{=site.audience}}" title="profile for {{=user.display_name}} at {{=site.name}}, Q&amp;A for {{=site.audience}}">
+					</a>
+					<p>{{=user.location}}</p>
+				</div>
+			</div>
+		</div>
+	</script>
+	<script type="text/x-jquery-tmpl" id="siteCheckboxesTemplate">
+		<li><input type="radio" name="sites" id="{{=api_site_parameter}}" value="{{=api_site_parameter}}" data-site-url="{{=site_url}}" data-site-audience="{{=audience}}" /><label for="{{=api_site_parameter}}"><img src="{{=icon_url}}" alt="{{=name}}" />{{=name}}</label></li>
+	</script>
+	<script type="text/javascript" src="/scripts/JSLINQ.js"></script>
+	<script type="text/javascript" src="/scripts/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="/scripts/jquery.jsonp-2.1.4.min.js"></script>
+	<script type="text/javascript" src="/scripts/jsrender.js"></script>
+	<script type="text/javascript" src="/scripts/jquery-ui-1.8.16.custom.min.js"></script>
+	<script type="text/javascript" src="/scripts/uri.js"></script>
+	<script type="text/javascript" src="/scripts/main.js"></script>
 </body>
 </html>
