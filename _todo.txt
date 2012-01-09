@@ -8,6 +8,11 @@ Start using API filters to get rid of API items I don't need.
 Offer about page with details and link to project code on GitHub and link to AppHarbor for the free hosting.
 Minimize all CSS files.
 Switch to sending IDs to $.stackExchangeApi.get* as an array to allow for debug warning (first) and chunking into rejoined 100-per requests (later).
+Options:
+  limit to tag, by site
+  max markers on map
+  slider for polling rate (1 to ?)
+  offer site list customization (stored to localStorage), with option to clear it
 
 Register app with stackapps.com with [apps] tag.
 
