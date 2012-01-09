@@ -3,8 +3,9 @@
 <head>
 	<meta http-equiv="content-type" content="text/html; charset=UTF-8">
 	<title>StackGeography - A Stack Exchange API project</title>
-	<link rel="stylesheet" type="text/css" href="/styles/reset.css">
-	<link rel="stylesheet" type="text/css" href="/styles/main.css">
+	<link rel="stylesheet" type="text/css" href="/styles/reset.css" />
+	<link rel="stylesheet" type="text/css" href="/styles/main.css" />
+	<link rel="stylesheet" type="text/css" href="/styles/site-defaults.css" />
 	<link rel="stylesheet" type="text/css" media="all" href="/styles/ui-lightness/jquery-ui-1.8.16.custom.css" />
 	<script type="text/javascript">
 		var _gaq = _gaq || [];
@@ -31,10 +32,10 @@
 	<script type="text/x-jquery-tmpl" id="infoWindowTemplate">
 		<div class="info-window-content">
 			<div class="site-{{=site.filter}}">
-				<p><a href="{{=link}}">{{=title!}}</a></p>
+				<p><a class="question-hyperlink" href="{{=link}}">{{=title!}}</a></p>
 				<div class="tags">
 					{{#each tags}}
-					<a style="background-color: {{=$parent.parent.data.site.tagBackgroundColor}}; color: {{=$parent.parent.data.site.tagForegroundColor}};" href="{{=$parent.parent.data.site.url}}/questions/tagged/{{=$ctx.encodeURIComponent($data)}}">{{=$data}}</a>
+					<a href="{{=$parent.parent.data.site.url}}/questions/tagged/{{=$ctx.encodeURIComponent($data)}}">{{=$data}}</a>
 					{{/each}}
 				</div>
 				<div>

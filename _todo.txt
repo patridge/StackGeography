@@ -21,6 +21,7 @@ Keyboard shortcuts
   [some key]: poll current site now
 Offer authentication to boost per-user quota.
 Create server-based cache to common requests (e.g., ASP.NET web cache proxy for SE API).
+Figure out if its possible to remove "Server" header from AppHarbor hosting.
 
 Closure compile all JS files, or use as much CDN links as possilbe and minify what's left.
   // ==ClosureCompiler==
