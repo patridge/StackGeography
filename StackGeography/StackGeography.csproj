@@ -45,6 +45,7 @@
     <Content Include="scripts\jsrender.js" />
     <Content Include="scripts\main.js" />
     <Content Include="scripts\uri.js" />
+    <Content Include="styles\site-defaults.css" />
     <Content Include="styles\main.css" />
     <Content Include="styles\reset.css" />
     <Content Include="styles\ui-lightness\images\ui-bg_diagonals-thick_18_b81900_40x40.png" />
