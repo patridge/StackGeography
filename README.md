@@ -40,6 +40,12 @@ I wanted to put together a mapping demo that I could use for a demo project of a
 
 I started everything in [jsFiddle](http://jsfiddle.net). After exactly 337 revisions over a week through jsFiddle, I decided to put the code and markup somewhere more permanent. I went out and registered a domain and set up this repository. I have started working on getting it hosted through [AppHarbor](https://appharbor.com/) but I haven't nailed that down yet as I am still picking up Git, GitHub, and AppHarbor.
 
+###Release Notes
+
+####2009-01-09
+
+After being live for just under 24 hours, the Google Maps API started rejecting (403) geocoding requests. Apparently, having everyone throw 50 requests at it for each load (not to mention additional requests for subsequent polls) was a bit mean. There is now a simple server-side proxy for geocoding requests that will cache them.
+
   [1]: http://api.stackexchange.com/docs/
   [2]: http://code.google.com/apis/maps/documentation/javascript/basics.html
   [3]: http://jquery.com/
