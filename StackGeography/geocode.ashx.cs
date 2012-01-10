@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Collections.Concurrent;
-using Newtonsoft.Json;
-using System.Net;
+﻿using System.Collections.Concurrent;
 using System.IO;
-using System.Dynamic;
+using System.Linq;
+using System.Net;
+using System.Web;
+using Newtonsoft.Json;
 
 namespace StackGeography {
     public class geocode : IHttpHandler {
