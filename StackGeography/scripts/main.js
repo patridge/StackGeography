@@ -384,21 +384,6 @@ $(function () {
             });
         }
     });
-    $("#polling-rate-slider").slider({
-        range: "min",
-        value: 1,
-        min: 1,
-        max: 60,
-        slide: function (event, ui) {
-            $("#amount").val(ui.value);
-        }
-    });
-    $("#polling-rate").val($("#polling-rate-slider").slider("value"));
-    $.views.registerHelpers({
-        encodeURIComponent: function (val) {
-            return encodeURIComponent(val);
-        }
-    });
 
     loadGoogleMaps.done(function () {
         getUserCoordinates.always(function () {
