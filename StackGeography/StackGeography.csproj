@@ -33,6 +33,8 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Content Include="images\apple-touch-icon.png" />
+    <Content Include="images\favicon.ico" />
     <Content Include="images\screenshot.png" />
     <Content Include="images\stachexchangemapmarker.png" />
     <Content Include="images\stackapps_logo.png" />
