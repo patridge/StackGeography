@@ -1,6 +1,5 @@
 Fix: Mac OS X Lion Safari vertical scrollbar issue (https://github.com/patridge/StackGeography/issues/1).
 Start using API filters to get rid of API items I don't need.
-site-based link color.
 site-based marker images.
 Refactor: extract geomarking/geocoding to $.something.
 Refactor: extract my $.whatevers to external files (ultimately closure compiled).
@@ -15,10 +14,8 @@ Options:
   slider for polling rate (1 to ?)
   offer site list customization (stored to localStorage), with option to clear it
 Keyboard shortcuts
-  ?: help menu
-  Esc: cancel polling
   [some key]: start polling
-  [some key]: poll current site now
+  [some key]: poll current site now (with debounce, http://benalman.com/projects/jquery-throttle-debounce-plugin/)
 Offer authentication to boost per-user quota.
 Create server-based cache to common requests (e.g., ASP.NET web cache proxy for SE API).
 Figure out if its possible to remove "Server" header from AppHarbor hosting.

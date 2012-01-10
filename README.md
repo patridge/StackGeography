@@ -23,6 +23,8 @@ While everything is in a fairly stable state, I do plan to add a number of addit
 * [jsrender v1.0pre (MIT)][5] (used to render out a number of things from JavaScript objects to HTML)
 * [LINQ to JavaScript (JSLINQ) v2.10 (Ms-RL)][6] (used for collection manipulations)
 * [URI.js (MIT or GPL)][7] (used to simplify URL handling)
+* [jquery-jsonp (MIT)](http://code.google.com/p/jquery-jsonp/)
+* [jquery.hotkeys (MIT or GPL)](https://github.com/jeresig/jquery.hotkeys/blob/master/jquery-1.4.2.js)
 
 ###License
 

@@ -1,5 +1,5 @@
 /***Let JSLint know what the expected global variables are***/
-/*global jQuery, $, console, google, JSLINQ, URI, clearTimeout, setTimeout */
+/*global document, jQuery, $, console, google, JSLINQ, URI, clearTimeout, setTimeout */
 
 var googleMapsCallback; // Required for Google Maps API to call back when it thinks it is done (vs. when jQuery finishes loading the script file).
 (function ($) {
@@ -8,13 +8,12 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
         getUserGeolocation: function () {
             // Wrap $.jsonp in Deferred for easier consumption.
             return $.Deferred(function (dfd) {
-                var x = $.jsonp({
+                $.jsonp({
                     url: "http://www.geoplugin.net/json.gp",
                     callbackParameter: "jsoncallback",
                     success: dfd.resolve,
                     error: dfd.reject
                 });
-                console.warn(x);
             });
         }
     });
@@ -130,7 +129,6 @@ $(function () {
     var apiKey = "BFkB32WKyHjbqI9RYU1lKA((",
         latestQuestionCreationDate = {},
         map,
-        mapGeocoder,
         mapFallbackLatLng,
         currentMapMarkers = [],
         clearMapMarker,
@@ -163,7 +161,7 @@ $(function () {
             }
             marker = new google.maps.Marker({
                 title: title,
-                position: location,
+                position: new google.maps.LatLng(location.lat, location.lng),
                 map: map,
                 animation: google.maps.Animation.DROP,
                 icon: mapMarkerImage,
@@ -199,24 +197,27 @@ $(function () {
                         geocodeResult = getCachedGeocodeResult(location);
                     if (null !== geocodeResult) {
                         // Use saved geocoding against callback(results, status).
-                        callback(geocodeResult.results, geocodeResult.status);
+                        callback(geocodeResult.result, geocodeResult.status);
                     } else {
-                        mapGeocoder.geocode({
-                            address: location
-                        }, function (results, status) {
-                            var currentCachedGeocodeResult = getCachedGeocodeResult(location);
-                            if (null === currentCachedGeocodeResult) {
-                                geocodeCache[geocodeCache.length] = {
-                                    location: location,
-                                    results: results,
-                                    status: status,
-                                    timestamp: new Date().getTime()
-                                };
-                                if (geocodeCache.length > maxGeocodeCachesize) {
-                                    geocodeCache.splice(0, 1);
+                        $.ajax({
+                            url: "/geocode.ashx?loc=" + encodeURIComponent(location),
+                            dataType: "json"
+                        }).done(function (data) {
+                            if (null !== data.result) {
+                                var currentCachedGeocodeResult = getCachedGeocodeResult(location);
+                                if (null === currentCachedGeocodeResult) {
+                                    geocodeCache[geocodeCache.length] = {
+                                        location: location,
+                                        results: data.result,
+                                        status: data.status,
+                                        timestamp: new Date().getTime()
+                                    };
+                                    if (geocodeCache.length > maxGeocodeCachesize) {
+                                        geocodeCache.splice(0, 1);
+                                    }
                                 }
+                                callback(data.result, data.status);
                             }
-                            callback(results, status);
                         });
                     }
                 };
@@ -224,11 +225,11 @@ $(function () {
         }()),
         getLatest = function (siteInfo) {
             var opts = {
-                    site: siteInfo.filter,
-                    pagesize: 50,
-                    sort: "creation",
-                    order: "desc"
-                },
+                site: siteInfo.filter,
+                pagesize: 50,
+                sort: "creation",
+                order: "desc"
+            },
                 getNewQuestions;
             if (latestQuestionCreationDate[siteInfo.filter]) {
                 // NOTE: always returns latest question we have already processed (min/fromdate is inclusive).
@@ -240,8 +241,8 @@ $(function () {
             });
             getNewQuestions.done(function (data) {
                 var questions = JSLINQ(data.items).Where(function (question) {
-                        return !hasMapMarker(question.question_id);
-                    }),
+                    return !hasMapMarker(question.question_id);
+                }),
                     userIds = questions.Select(function (question) {
                         return question.owner ? question.owner.user_id : null;
                     }).Distinct(function (userId) {
@@ -279,7 +280,7 @@ $(function () {
                         } else if (questionWithUserInfo.user && questionWithUserInfo.user.location) {
                             geocodeLocation(questionWithUserInfo.user.location, function (results, status) {
                                 if (status === google.maps.GeocoderStatus.OK) {
-                                    locationToUse = results[0].geometry.location;
+                                    locationToUse = results;
                                 } else if (markGeocodingFailures) {
                                     // Geocoding fail but "mapping" anyway; use fallback.
                                     locationToUse = mapFallbackLatLng;
@@ -306,7 +307,7 @@ $(function () {
             $stopPolling.hide();
         },
         poll = function (siteInfo) {
-            if (mapGeocoder && map) {
+            if (map) {
                 keepPolling = true;
                 $startPolling.hide();
                 $stopPolling.show();
@@ -347,7 +348,7 @@ $(function () {
     });
     $startPolling.click(function (e) {
         failCount = 0;
-        $("#options").dialog({
+        $("#site-selection").dialog({
             title: "Pick a site",
             modal: true,
             closeOnEscape: false,
@@ -370,6 +371,29 @@ $(function () {
         });
         e.preventDefault();
     });
+    $(document).bind("keydown", "esc", function () {
+        stopPoll();
+        // NOTE: Not explicitly cancelling event propagation here.
+    });
+    // Can't register jquery.hotkey for "?". Technically, this registers for "shift+/", which may not be universal, but it will do for now.
+    $(document).bind("keyup", function (e) {
+        if (e.keyCode === 191 && !$(e.target).is("input") && !$(e.target).is("textarea")) {
+            $("#keyboard-shortcuts").dialog({
+                title: "Keyboard Shortcuts",
+                modal: true
+            });
+        }
+    });
+    $("#polling-rate-slider").slider({
+        range: "min",
+        value: 1,
+        min: 1,
+        max: 60,
+        slide: function (event, ui) {
+            $("#amount").val(ui.value);
+        }
+    });
+    $("#polling-rate").val($("#polling-rate-slider").slider("value"));
     $.views.registerHelpers({
         encodeURIComponent: function (val) {
             return encodeURIComponent(val);
@@ -378,7 +402,6 @@ $(function () {
 
     loadGoogleMaps.done(function () {
         getUserCoordinates.always(function () {
-            mapGeocoder = new google.maps.Geocoder();
             map = new google.maps.Map($("#map_canvas")[0], {
                 center: new google.maps.LatLng(mapCenterCoordinates.latitude, mapCenterCoordinates.longitude),
                 zoom: 2,
@@ -393,8 +416,8 @@ $(function () {
             $.stackExchangeApi.getAllSitesWithMultipleRequests({ pagesize: 100 }).done(function (data) {
                 // NOTE: currently omitting meta sites.
                 var siteItems = JSLINQ(data).Where(function (site) {
-                        return site.site_type !== "meta_site";
-                    }),
+                    return site.site_type !== "meta_site";
+                }),
                     $siteCheckboxes = $($("#siteCheckboxesTemplate").render(siteItems.ToArray()));
                 $siteCheckboxes.first().find("input").attr("checked", "checked");
                 $("#sites").html($siteCheckboxes);

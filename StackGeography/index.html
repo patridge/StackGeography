@@ -23,11 +23,16 @@
 	<div>
 		<a id="stop-polling" href="#" class="hidden">Stop Polling</a> <a id="start-polling" href="#" class="hidden">Start Polling</a>
 	</div>
-	<div id="options" class="hidden">
+	<div id="map_canvas">
+	</div>
+	<div id="site-selection" class="hidden">
 		<ul id="sites">
 		</ul>
 	</div>
-	<div id="map_canvas">
+	<div id="keyboard-shortcuts" class="hidden">
+		<ul>
+			<li><kbd>Esc</kbd> Cancel polling</li>
+		</ul>
 	</div>
 	<script type="text/x-jquery-tmpl" id="infoWindowTemplate">
 		<div class="info-window-content">
@@ -52,6 +57,7 @@
 	</script>
 	<script type="text/javascript" src="/scripts/JSLINQ.js"></script>
 	<script type="text/javascript" src="/scripts/jquery-1.7.1.min.js"></script>
+	<script type="text/javascript" src="scripts/jquery.hotkeys.js"></script>
 	<script type="text/javascript" src="/scripts/jquery.jsonp-2.2.0.min.js"></script>
 	<script type="text/javascript" src="/scripts/jsrender.js"></script>
 	<script type="text/javascript" src="/scripts/jquery-ui-1.8.16.custom.min.js"></script>
