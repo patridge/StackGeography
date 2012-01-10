@@ -385,6 +385,12 @@ $(function () {
         }
     });
 
+    $.views.registerHelpers({
+        encodeURIComponent: function (val) {
+            return encodeURIComponent(val);
+        }
+    });
+
     loadGoogleMaps.done(function () {
         getUserCoordinates.always(function () {
             map = new google.maps.Map($("#map_canvas")[0], {
