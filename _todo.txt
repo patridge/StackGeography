@@ -1,6 +1,5 @@
 Start using API filters to get rid of API items I don't need.
-Closure Compile project script files.
-Minimize all CSS files.
+Closure Compile main script file.
 site-based marker images.
 Refactor: extract geomarking/geocoding to $.something.
 Stagger marker placement/animation (deferred chaining, ideally) (with option to disable).

@@ -1,0 +1,12 @@
+// ==ClosureCompiler==
+// @compilation_level SIMPLE_OPTIMIZATIONS
+// @output_file_name stackgeography.{timestamp}.min.js
+// @code_url http://www.stackgeography.com/scripts/jquery-ui-1.8.16.custom.min.js
+// @code_url http://www.stackgeography.com/scripts/jquery.geoip.js
+// @code_url http://www.stackgeography.com/scripts/jquery.stackExchangeApi.js
+// @code_url http://www.stackgeography.com/scripts/JSLINQ.js
+// @code_url http://www.stackgeography.com/scripts/jquery.hotkeys.js
+// @code_url http://www.stackgeography.com/scripts/jquery.jsonp-2.2.0.min.js
+// @code_url http://www.stackgeography.com/scripts/jsrender.js
+// @code_url http://www.stackgeography.com/scripts/uri.js
+// ==/ClosureCompiler==
