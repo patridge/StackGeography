@@ -40,8 +40,9 @@
     <Content Include="images\stackapps_logo.png" />
     <Content Include="index.html" />
     <Content Include="scripts\jquery-ui-1.8.16.custom.min.js" />
+    <Content Include="scripts\jquery.googlemaps.js" />
     <Content Include="scripts\jquery.stackExchangeApi.js" />
-    <Content Include="scripts\jquery.geoip.js" />
+    <Content Include="scripts\jquery.geocode.js" />
     <Content Include="scripts\googlemapsv3.js" />
     <Content Include="scripts\jquery.hotkeys.js" />
     <Content Include="scripts\jquery.jsonp-2.2.0.min.js" />

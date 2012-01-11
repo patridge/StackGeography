@@ -1,5 +1,4 @@
-﻿/***Let JSLint know what the expected global variables are***/
-/*global window, jQuery, google */
+﻿/*global window, jQuery, google */
 
 var googleMapsCallback; // Required for Google Maps API to call back when it thinks it is done (vs. when jQuery finishes loading the script file).
 (function ($) {
@@ -20,9 +19,14 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
         }
         if (!google.maps.Marker.prototype.placeOnMap) {
             google.maps.Marker.prototype.placeOnMap = function (map, options) {
-                var opts = $.extend({}, google.maps.Marker.prototype.placeOnMap.defaults, options);
+                var opts = $.extend({}, google.maps.Marker.prototype.placeOnMap.defaults, options),
+                    infoWindow;
                 this.setMap(map);
-                if (opts.infoWindow) {
+                if (opts.infoWindowHtml) {
+                    infoWindow = new google.maps.InfoWindow({
+                        content: opts.infoWindowHtml,
+                        maxWidth: opts.infoWindowMaxWidth
+                    });
                     google.maps.event.addListener(this, "click", function () {
                         var i;
                         if (opts.hideOtherInfoWindowOnClick && currentOpenInfoWindows.length > 0) {
@@ -30,8 +34,8 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
                                 currentOpenInfoWindows[i].close();
                             }
                         }
-                        currentOpenInfoWindows[currentOpenInfoWindows.length] = opts.infoWindow;
-                        opts.infoWindow.open(map, this);
+                        currentOpenInfoWindows[currentOpenInfoWindows.length] = infoWindow;
+                        infoWindow.open(map, this);
                     });
                 }
             };
@@ -51,6 +55,16 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
             dataType: "script"
         }).fail(googleMapsLoaded.reject);
         return googleMapsLoaded.promise();
+    };
+    $.googleMaps.createMap = function (element, options) {
+        return new google.maps.Map(element, {
+            center: new google.maps.LatLng(options.center.lat, options.center.lng),
+            zoom: options.zoom,
+            mapTypeId: google.maps.MapTypeId.TERRAIN
+        });
+    };
+    $.googleMaps.MarkerImage = function (url, size, origin, anchor) {
+        return new google.maps.MarkerImage(url, new google.maps.Size(size.width, size.height), new google.maps.Point(origin.x, origin.y), new google.maps.Point(anchor.x, anchor.y));
     };
     $.googleMaps.createMarker = function (options) {
         var marker,

@@ -1,4 +1,3 @@
-/***Let JSLint know what the expected global variables are***/
 /*global jQuery, $, console, JSLINQ, URI */
 
 (function ($) {

@@ -1,17 +1,26 @@
-/***Let JSLint know what the expected global variables are***/
-/*global document, $, google, JSLINQ, clearTimeout, setTimeout */
+/*global document, $, JSLINQ, clearTimeout, setTimeout */
 
 $(function () {
     "use strict";
     var apiKey = "BFkB32WKyHjbqI9RYU1lKA((",
         latestQuestionCreationDate = {},
+        loadGoogleMaps = $.googleMaps.loadApi(),
+        defaultMapCenterLocation = { lat: 20, lng: 0 }, // Start with a default map center.
+        getMapCenter = $.Deferred(function (dfd) {
+            $.geocode.getIpLatLng().done(function (userLocation) {
+                dfd.resolve(userLocation);
+            }).fail(function () {
+                // Moving on regardless of getting user coordinates.
+                dfd.resolve(defaultMapCenterLocation);
+            });
+        }),
         map,
         mapFallbackLocation = {
             lat: -78.4644915,
             lng: 106.83397289999994
         }, // Antarctica
         currentMapMarkers = [],
-        markGeocodingFailures = true,
+        useGeocodingFallback = false,
         maxMapMarkers = 500,
         infoWindowTemplate = $.template("infoWindowTemplate", $("#infoWindowTemplate")),
         $startPolling = $("#start-polling"),
@@ -24,44 +33,6 @@ $(function () {
                 return currentMarker.questionId && currentMarker.questionId === id;
             });
         },
-        geocodeLocation = (function () {
-            var geocodeCache = [],
-                maxGeocodeCachesize = 50,
-                cachedGeocodeLocation = function (location, callback) {
-                    var getCachedGeocodeResult = function (locationToFind) {
-                        return JSLINQ(geocodeCache).First(function (geocoding) {
-                            return geocoding.location === locationToFind;
-                        });
-                    },
-                        geocodeResult = getCachedGeocodeResult(location);
-                    if (null !== geocodeResult) {
-                        // Use saved geocoding against callback(results, status).
-                        callback(geocodeResult.result, geocodeResult.status);
-                    } else {
-                        $.ajax({
-                            url: "/geocode.ashx?loc=" + encodeURIComponent(location),
-                            dataType: "json"
-                        }).done(function (data) {
-                            if (null !== data.result) {
-                                var currentCachedGeocodeResult = getCachedGeocodeResult(location);
-                                if (null === currentCachedGeocodeResult) {
-                                    geocodeCache[geocodeCache.length] = {
-                                        location: location,
-                                        results: data.result,
-                                        status: data.status,
-                                        timestamp: new Date().getTime()
-                                    };
-                                    if (geocodeCache.length > maxGeocodeCachesize) {
-                                        geocodeCache.splice(0, 1);
-                                    }
-                                }
-                                callback(data.result, data.status);
-                            }
-                        });
-                    }
-                };
-            return cachedGeocodeLocation;
-        }()),
         getLatest = function (siteInfo) {
             var opts = {
                 site: siteInfo.filter,
@@ -110,33 +81,30 @@ $(function () {
                             getGeocodeLocation = $.Deferred();
 
                         if (questionWithUserInfo.user && questionWithUserInfo.user.location) {
-                            geocodeLocation(questionWithUserInfo.user.location, function (results, status) {
-                                if (status === google.maps.GeocoderStatus.OK) {
-                                    getGeocodeLocation.resolve(results);
+                            $.geocode.getStringLatLng(questionWithUserInfo.user.location).done(function (results) {
+                                getGeocodeLocation.resolve(results);
+                            }).fail(function () {
+                                if (useGeocodingFallback) {
+                                    // No location, but we are mapping those to fallback location.
+                                    getGeocodeLocation.resolve(mapFallbackLocation);
                                 } else {
                                     getGeocodeLocation.reject();
                                 }
                             });
-                        } else if (markGeocodingFailures) {
+                        } else if (useGeocodingFallback) {
                             // No location, but we are mapping those to fallback location.
-                            getGeocodeLocation.resolve();
+                            getGeocodeLocation.resolve(mapFallbackLocation);
                         }
 
                         getGeocodeLocation.done(function (geocodedLocation) {
-                            if (!markGeocodingFailures && !geocodedLocation) {
-                                // Either no location or unable to geocode location.
-                                return;
-                            }
-
                             markerOptions.location = geocodedLocation;
                             markerOptions.title = questionWithUserInfo.title;
-                            markerOptions.infoWindow = new google.maps.InfoWindow({
-                                content: $.render($.extend(questionWithUserInfo, { site: siteInfo }), infoWindowTemplate),
-                                maxWidth: 250
-                            });
                             marker = $.googleMaps.createMarker(markerOptions);
                             marker.id = questionWithUserInfo.question_id;
-                            marker.placeOnMap(map, markerOptions);
+                            marker.placeOnMap(map, {
+                                infoWindowHtml: $.render($.extend(questionWithUserInfo, { site: siteInfo }), infoWindowTemplate),
+                                infoWindowMaxWidth: 250
+                            });
                             currentMapMarkers[currentMapMarkers.length] = marker;
                             if (currentMapMarkers.length > maxMapMarkers && currentMapMarkers[0]) {
                                 currentMapMarkers[0].clearFromMap();
@@ -177,20 +145,7 @@ $(function () {
                     }
                 });
             }
-        },
-        mapCenterCoordinates = { latitude: 20, longitude: 0 }, // Start with a default map center.
-        getUserCoordinates = $.Deferred(function (dfd) {
-            $.geoByIp.getLocation().done(function (data) {
-                if (data.geoplugin_latitude && data.geoplugin_longitude) {
-                    // Got user coordinates by IP; use them for map center.
-                    mapCenterCoordinates = { latitude: data.geoplugin_latitude, longitude: data.geoplugin_longitude };
-                    dfd.resolve();
-                } else {
-                    dfd.reject();
-                }
-            }).fail(dfd.reject);
-        }),
-        loadGoogleMaps = $.googleMaps.loadApi();
+        };
 
     // Set Stack Exchange API app key for all requests.
     $.stackExchangeApi.typicalDefaults = $.extend($.stackExchangeApi.typicalDefaults, {
@@ -245,26 +200,22 @@ $(function () {
         }
     });
 
-    loadGoogleMaps.done(function () {
-        getUserCoordinates.always(function () {
-            map = new google.maps.Map($("#map_canvas")[0], {
-                center: new google.maps.LatLng(mapCenterCoordinates.latitude, mapCenterCoordinates.longitude),
-                zoom: 2,
-                mapTypeId: google.maps.MapTypeId.TERRAIN
-            });
-            $.googleMaps.createMarker.defaults.location = mapFallbackLocation;
-            $.googleMaps.createMarker.defaults.markerImage = new google.maps.MarkerImage("/images/stachexchangemapmarker.png", new google.maps.Size(19, 34), new google.maps.Point(0, 0), new google.maps.Point(9, 34));
-            $.googleMaps.createMarker.defaults.markerImageShadow = new google.maps.MarkerImage("/images/stachexchangemapmarker.png", new google.maps.Size(29, 34), new google.maps.Point(28, 0), new google.maps.Point(0, 34));
-            $.stackExchangeApi.getAllSitesWithMultipleRequests({ pagesize: 100 }).done(function (data) {
-                // NOTE: currently omitting meta sites.
-                var siteItems = JSLINQ(data).Where(function (site) {
-                    return site.site_type !== "meta_site";
-                }),
-                    $siteCheckboxes = $($("#siteCheckboxesTemplate").render(siteItems.ToArray()));
-                $siteCheckboxes.first().find("input").attr("checked", "checked");
-                $("#sites").html($siteCheckboxes);
-                $startPolling.click();
-            });
+    $.when(getMapCenter, loadGoogleMaps).done(function (center) {
+        map = $.googleMaps.createMap($("#map_canvas")[0], {
+            center: center,
+            zoom: 2
+        });
+        $.googleMaps.createMarker.defaults.markerImage = $.googleMaps.MarkerImage("/images/stachexchangemapmarker.png", { width: 19, height: 34 }, { x: 0, y: 0 }, { x: 9, y: 34 });
+        $.googleMaps.createMarker.defaults.markerImageShadow = $.googleMaps.MarkerImage("/images/stachexchangemapmarker.png", { width: 29, height: 34 }, { x: 28, y: 0 }, { x: 0, y: 34 });
+        $.stackExchangeApi.getAllSitesWithMultipleRequests({ pagesize: 100 }).done(function (data) {
+            // NOTE: currently omitting meta sites.
+            var siteItems = JSLINQ(data).Where(function (site) {
+                return site.site_type !== "meta_site";
+            }),
+                $siteCheckboxes = $($("#siteCheckboxesTemplate").render(siteItems.ToArray()));
+            $siteCheckboxes.first().find("input").attr("checked", "checked");
+            $("#sites").html($siteCheckboxes);
+            $startPolling.click();
         });
     });
 });
