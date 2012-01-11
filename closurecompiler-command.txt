@@ -2,7 +2,8 @@
 // @compilation_level SIMPLE_OPTIMIZATIONS
 // @output_file_name stackgeography.{timestamp}.min.js
 // @code_url http://www.stackgeography.com/scripts/jquery-ui-1.8.16.custom.min.js
-// @code_url http://www.stackgeography.com/scripts/jquery.geoip.js
+// @code_url http://www.stackgeography.com/scripts/jquery.googlemaps.js
+// @code_url http://www.stackgeography.com/scripts/jquery.geocode.js
 // @code_url http://www.stackgeography.com/scripts/jquery.stackExchangeApi.js
 // @code_url http://www.stackgeography.com/scripts/JSLINQ.js
 // @code_url http://www.stackgeography.com/scripts/jquery.hotkeys.js
