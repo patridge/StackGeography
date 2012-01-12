@@ -26,9 +26,9 @@
         },
         getApiDataPromise = function (url) {
             var apiGetPromise = $.ajax({
-                    dataType: "jsonp",
-                    url: url
-                }),
+                dataType: "jsonp",
+                url: url
+            }),
                 resultDfd = $.Deferred();
             apiGetPromise.done(function (data) {
                 if (data.error_id) {
@@ -53,21 +53,15 @@
         //page: x,
     };
     $.stackExchangeApi.getQuestions = function (options) {
-        var opts = $.extend({}, $.stackExchangeApi.getQuestions.defaults, options),
+        var opts = $.extend({}, $.stackExchangeApi.typicalDefaults, { sort: "creation" }, options),
             url = getApiUrlWithOptions("/2.0/questions/", opts);
         return getApiDataPromise(url);
     };
-    $.stackExchangeApi.getQuestions.defaults = $.extend({}, $.stackExchangeApi.typicalDefaults, {
-        sort: "creation"
-    });
     $.stackExchangeApi.getUsers = function (options) {
-        var opts = $.extend({}, $.stackExchangeApi.getUsers.defaults, options),
+        var opts = $.extend({}, $.stackExchangeApi.typicalDefaults, { sort: "reputation" }, options),
             url = getApiUrlWithOptions("/2.0/users/", opts);
         return getApiDataPromise(url);
     };
-    $.stackExchangeApi.getUsers.defaults = $.extend({}, $.stackExchangeApi.typicalDefaults, {
-        sort: "reputation"
-    });
     $.stackExchangeApi.getAllSitesWithMultipleRequests = function (options) {
         // Currently only works for first 200 sites until I make it all recursively awesome.
         var allSiteItems,
@@ -83,9 +77,9 @@
         return resultDfd.promise();
     };
     $.stackExchangeApi.getSites = function (options) {
-        var opts = $.extend({ pagesize: 100, key: $.stackExchangeApi.typicalDefaults.key }, options),
+        var opts = $.extend({ pagesize: 100, filter: $.stackExchangeApi.typicalDefaults.filter, key: $.stackExchangeApi.typicalDefaults.key }, options),
             url = getApiUrlWithOptions("/2.0/sites/", opts);
         // NOTE: when there are more than 100 sites, this will not get them all.
         return getApiDataPromise(url);
     };
-}(jQuery));
+} (jQuery));

@@ -2,7 +2,8 @@
 
 $(function () {
     "use strict";
-    var apiKey = "BFkB32WKyHjbqI9RYU1lKA((",
+    var stackExchangeApiKey = "BFkB32WKyHjbqI9RYU1lKA((",
+        stackExchangeApiFilter = "!*QjqSxwBvameYSqv*KAWVuBqECIRl4sAdZy(idPWq",
         latestQuestionCreationDate = {},
         loadGoogleMaps = $.googleMaps.loadApi(),
         defaultMapCenterLocation = { lat: 20, lng: 0 }, // Start with a default map center.
@@ -149,7 +150,8 @@ $(function () {
 
     // Set Stack Exchange API app key for all requests.
     $.stackExchangeApi.typicalDefaults = $.extend($.stackExchangeApi.typicalDefaults, {
-        key: apiKey
+        key: stackExchangeApiKey,
+        filter: stackExchangeApiFilter
     });
     $stopPolling.click(function (e) {
         stopPoll();
@@ -210,8 +212,8 @@ $(function () {
         $.stackExchangeApi.getAllSitesWithMultipleRequests({ pagesize: 100 }).done(function (data) {
             // NOTE: currently omitting meta sites.
             var siteItems = JSLINQ(data).Where(function (site) {
-                return site.site_type !== "meta_site";
-            }),
+                    return site.site_type !== "meta_site";
+                }),
                 $siteCheckboxes = $($("#siteCheckboxesTemplate").render(siteItems.ToArray()));
             $siteCheckboxes.first().find("input").attr("checked", "checked");
             $("#sites").html($siteCheckboxes);

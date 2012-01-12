@@ -1,9 +1,8 @@
-Start using API filters to get rid of API items I don't need.
 Closure Compile main script file.
 site-based marker images.
-Refactor: extract geomarking/geocoding to $.something.
 Stagger marker placement/animation (deferred chaining, ideally) (with option to disable).
-Do multiple sites "simultaneously" (with UI changes, possibly wait on server-side caching).
+Create server-based cache to common requests, especially SE sites (e.g., ASP.NET web cache proxy for SE API).
+Do multiple sites "simultaneously" (with UI changes, wait on server-side caching).
 Offer about page with details and link to project code on GitHub and link to AppHarbor for the free hosting.
 When sending more than 100 IDs to $.stackExchangeApi.get*, chunk into rejoined 100-per requests (currently warning and splicing).
 Options:
@@ -17,7 +16,6 @@ Keyboard shortcuts
   [some key]: poll current site now (with debounce, http://benalman.com/projects/jquery-throttle-debounce-plugin/)
   [some key]: clear markers
 Offer authentication to boost per-user quota.
-Create server-based cache to common requests (e.g., ASP.NET web cache proxy for SE API).
 Figure out if its possible to remove "Server" header from AppHarbor hosting.
 Fix: Mac OS X Lion Safari vertical scrollbar issue (https://github.com/patridge/StackGeography/issues/1).
 
