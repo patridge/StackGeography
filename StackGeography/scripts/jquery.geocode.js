@@ -49,6 +49,8 @@
                                         }
                                     }
                                     resultDfd.resolve(data.result);
+                                } else {
+                                    resultDfd.reject();
                                 }
                             }).fail(resultDfd.reject);
                         }

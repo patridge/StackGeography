@@ -1,7 +1,8 @@
+Allow <kbd>Enter</kbd> to submit site selection.
 Closure Compile main script file.
 site-based marker images.
 Stagger marker placement/animation (deferred chaining, ideally) (with option to disable).
-Create server-based cache to common requests, especially SE sites (e.g., ASP.NET web cache proxy for SE API).
+Create server SQL-based cache to SE API requests, especially sites (e.g., ASP.NET web cache proxy for SE API).
 Do multiple sites "simultaneously" (with UI changes, wait on server-side caching).
 Offer about page with details and link to project code on GitHub and link to AppHarbor for the free hosting.
 When sending more than 100 IDs to $.stackExchangeApi.get*, chunk into rejoined 100-per requests (currently warning and splicing).

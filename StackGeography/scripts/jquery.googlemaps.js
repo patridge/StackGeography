@@ -7,7 +7,7 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
         currentOpenInfoWindows = [],
         debug = function debug(message, obj) {
             if (window.console && window.console.log) {
-                window.console.log(message + obj ? ": " + obj : "");
+                window.console.log((message || "") + ": " + (obj || ""));
             }
         };
     googleMapsCallback = function () {
