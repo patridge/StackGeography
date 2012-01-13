@@ -1,14 +1,7 @@
-﻿using System.Collections.Concurrent;
-using System.IO;
-using System.Linq;
-using System.Net;
+﻿using System.Configuration;
 using System.Web;
 using Newtonsoft.Json;
 using StackGeography.Models;
-using System.Data;
-using System.Data.SqlClient;
-using System.Configuration;
-using System.Data.SqlServerCe;
 
 namespace StackGeography {
     public class geocode : IHttpHandler {
