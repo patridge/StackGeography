@@ -3,7 +3,7 @@
 $(function () {
     "use strict";
     var stackExchangeApiKey = "BFkB32WKyHjbqI9RYU1lKA((",
-        stackExchangeApiFilter = "!*QjqSxwBvameYSqv*KAWVuBqECIRl4sAdZy(idPWq",
+        stackExchangeApiFilter = "!Txfh2mrFy-p6RynMil1VXSkHECJn8fbSNFzHmEjS4am",
         latestQuestionCreationDate = {},
         loadGoogleMaps = $.googleMaps.loadApi(),
         defaultMapCenterLocation = { lat: 20, lng: 0 }, // Start with a default map center.
@@ -121,33 +121,55 @@ $(function () {
         },
         failCount = 0,
         maxFailCount = 5,
-        stopPendingPoll = function () {
-            if (pendingPoll) {
-                clearTimeout(pendingPoll);
-                keepPolling = false;
-            }
-        },
-        stopPoll = function () {
-            stopPendingPoll();
+        pollingUtility = (function () {
+            var currentQueue = {},
+                stopPending = function (id) {
+                    if (currentQueue[id]) {
+                        clearTimeout(currentQueue[id]);
+                        delete currentQueue[id];
+                    }
+                },
+                queue = function (id, action, wait) {
+                    stopPending(id);
+                    currentQueue[id] = setTimeout(action, wait);
+                },
+                hasPending = function (id) {
+                    return currentQueue[id];
+                },
+                stopAll = function () {
+                    $.each(currentQueue, function (pollId) {
+                        stopPending(pollId);
+                    });
+                };
+            return {
+                currentQueue: currentQueue, // for debugging
+                stopPending: stopPending,
+                queue: queue,
+                hasPending: hasPending,
+                stopAll: stopAll
+            };
+        }()),
+        stopPolling = function () {
+            pollingUtility.stopAll();
             $startPolling.show();
             $stopPolling.hide();
         },
-        poll = function (siteInfo) {
-            // With new keyboard shortcut for site window, this is required to keep from polling multiple sites (and not being able to cancel them all).
-            stopPendingPoll();
+        startPolling = function (siteInfo) {
             if (map) {
+                pollingUtility.stopPending(siteInfo.filter);
                 keepPolling = true;
                 $startPolling.hide();
                 $stopPolling.show();
 
                 getLatest(siteInfo).always(function () {
-                    if (keepPolling && !pendingPoll) {
-                        pendingPoll = setTimeout(function () { poll(siteInfo); }, pollingWait);
+                    if (keepPolling) {
+                        // pollingUtility.queue will take care of clearning any existing poll for this site.
+                        pollingUtility.queue(siteInfo.filter, function () { startPolling(siteInfo); }, pollingWait);
                     }
                 }).fail(function () {
                     failCount += 1;
                     if (failCount >= maxFailCount) {
-                        stopPoll();
+                        pollingUtility.stopPending(siteInfo.filter);
                     }
                 });
             }
@@ -159,7 +181,7 @@ $(function () {
         filter: stackExchangeApiFilter
     });
     $stopPolling.click(function (e) {
-        stopPoll();
+        stopPolling();
         e.preventDefault();
     });
     $startPolling.click(function (e) {
@@ -190,14 +212,14 @@ $(function () {
                     siteUrl = $selectedSiteInput.data("site-url") || "www.stackoverflow.com",
                     siteAudience = $selectedSiteInput.data("site-audience"),
                     siteName = $selectedSiteInput.siblings("label").first().text();
-                poll({ filter: siteFilter, url: siteUrl, audience: siteAudience, name: siteName });
+                startPolling({ filter: siteFilter, url: siteUrl, audience: siteAudience, name: siteName });
                 $(this).off("keyup.enter");
             }
         });
         e.preventDefault();
     });
     $(document).bind("keydown", "esc", function () {
-        stopPoll();
+        stopPolling();
         // NOTE: Not explicitly cancelling event propagation here.
     });
     $(document).bind("keyup", "s", function (e) {

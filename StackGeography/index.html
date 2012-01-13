@@ -21,7 +21,7 @@
 </head>
 <body>
 	<div>
-		<a id="stop-polling" href="#" class="hidden">Stop Polling</a> <a id="start-polling" href="#" class="hidden">Start Polling</a>
+		<a id="stop-polling" href="#" class="hidden">Stop All Polling</a> <a id="start-polling" href="#" class="hidden">Start Polling</a>
 	</div>
 	<div id="map_canvas">
 	</div>
@@ -48,7 +48,7 @@
 					<a href="{{=user.link}}">
 						<img src="{{=site.url}}/users/flair/{{=user.user_id}}.png" width="208" height="58" alt="profile for {{=user.display_name}} at {{=site.name}}, Q&amp;A for {{=site.audience}}" title="profile for {{=user.display_name}} at {{=site.name}}, Q&amp;A for {{=site.audience}}">
 					</a>
-					<p>{{=user.location}}</p>
+					<p>{{=user.location!}}</p>
 				</div>
 			</div>
 		</div>
