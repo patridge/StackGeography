@@ -20,10 +20,3 @@ Keyboard shortcuts
 Offer authentication to boost per-user quota.
 Figure out if its possible to remove "Server" header from AppHarbor hosting.
 Fix: Mac OS X Lion Safari vertical scrollbar issue (https://github.com/patridge/StackGeography/issues/1).
-
-Closure compile all JS files, or use as much CDN links as possilbe and minify what's left.
-  // ==ClosureCompiler==
-  // @compilation_level SIMPLE_OPTIMIZATIONS
-  // @output_file_name main.min.js
-  // @code_url http://www.stackgeography.com/scripts/main.js
-  // ==/ClosureCompiler==
