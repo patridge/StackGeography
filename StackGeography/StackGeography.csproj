@@ -63,6 +63,7 @@
       <DependentUpon>geocode.ashx</DependentUpon>
     </Compile>
     <Compile Include="Models\Coordinates.cs" />
+    <Compile Include="Models\GeocodingLookupServiceResult.cs" />
     <Compile Include="Services\IGeocodingCache.cs" />
     <Compile Include="Models\GeocodingResult.cs" />
     <Compile Include="Services\GoogleMapsGeocodingLookupService.cs" />
