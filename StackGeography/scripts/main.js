@@ -185,6 +185,7 @@ $(function () {
         e.preventDefault();
     });
     $startPolling.click(function (e) {
+        stopPolling();
         failCount = 0;
         $("#site-selection").dialog({
             title: "Pick a site",
