@@ -3,11 +3,27 @@
     using System;
     using System.Data;
     using Dapper;
+    using System.Data.SqlClient;
+using System.Data.SqlServerCe;
 
-    public class SqlCachedGeocodingCache : IGeocodingCache {
+    public class SqlServerGeocodingCache : DbConnectionGeocodingCache {
+        public override IDbConnection GetDbConnection() {
+            return new SqlConnection(this.ConnectionString);
+        }
+        public SqlServerGeocodingCache(string connectionString) : base(connectionString) { }
+    }
+    public class SqlCeGeocodingCache : DbConnectionGeocodingCache {
+        public override IDbConnection GetDbConnection() {
+            return new SqlCeConnection(this.ConnectionString);
+        }
+        public SqlCeGeocodingCache(string connectionString) : base(connectionString) { }
+    }
+
+    public abstract class DbConnectionGeocodingCache : IGeocodingCache {
+        public abstract IDbConnection GetDbConnection();
         public string ConnectionString { get; set; }
-        public SqlCachedGeocodingCache(string connectionString) {
-            if (string.IsNullOrEmpty(connectionString)) {
+        public DbConnectionGeocodingCache(string connectionString) {
+            if (null == connectionString) {
                 throw new ArgumentNullException("connectionString");
             }
 
@@ -18,10 +34,10 @@
             if (location == null) {
                 return null;
             }
-            using (IDbConnection connection = new System.Data.SqlServerCe.SqlCeConnection(this.ConnectionString)) {
+            GeocodingResult result = null;
+            using (IDbConnection connection = this.GetDbConnection()) {
                 connection.Open();
                 dynamic data = connection.Query(selectByLocation, new { location = location.ToUpperInvariant() }).FirstOrDefault();
-                GeocodingResult result = null;
                 if (data != null) {
                     Coordinates coords = null;
                     if (data.Latitude != null && data.Longitude != null) {
@@ -29,8 +45,8 @@
                     }
                     result = new GeocodingResult() { Location = data.Location, Coordinates = coords };
                 }
-                return result;
             }
+            return result;
         }
         private const string insertGeocodingResult = "INSERT INTO GeocodingResults SELECT @location Location, @latitude Latitude, @longitude Longitude WHERE NOT EXISTS (SELECT 1 FROM GeocodingResults WITH (UPDLOCK, HOLDLOCK) WHERE Location = @location)";
         public void Store(GeocodingResult geocodingResult) {
@@ -40,7 +56,7 @@
             Coordinates coords = geocodingResult.Coordinates;
             decimal? latitude = coords != null ? coords.Latitude : (decimal?)null;
             decimal? longitude = coords != null ? coords.Longitude : (decimal?)null;
-            using (IDbConnection connection = new System.Data.SqlServerCe.SqlCeConnection(this.ConnectionString)) {
+            using (IDbConnection connection = this.GetDbConnection()) {
                 connection.Open();
                 connection.Execute(insertGeocodingResult, new { location = geocodingResult.Location.ToUpperInvariant(), latitude = latitude, longitude = longitude });
             }

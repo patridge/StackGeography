@@ -5,6 +5,10 @@ using System.Net;
 using System.Web;
 using Newtonsoft.Json;
 using StackGeography.Models;
+using System.Data;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data.SqlServerCe;
 
 namespace StackGeography {
     public class geocode : IHttpHandler {
@@ -40,6 +44,16 @@ namespace StackGeography {
             this.GeocodingCache = geocodingCache;
             this.GeocodingLookupService = geocodingLookupService;
         }
-        public geocode() : this(new SqlCachedGeocodingCache(System.Configuration.ConfigurationManager.ConnectionStrings["StackGeography"].ConnectionString), new GoogleMapsGeocodingLookupService()) { }
+        private static IGeocodingCache GetGeocodingCache() {
+            string connectionString = ConfigurationManager.ConnectionStrings["StackGeography"].ConnectionString;
+            IGeocodingCache geocodingCache = new SqlServerGeocodingCache(connectionString);
+#if DEBUG
+            // Override with local SQLCE connection string in debug.
+            connectionString = ConfigurationManager.ConnectionStrings["StackGeography_sqlce"].ConnectionString;
+            geocodingCache = new SqlCeGeocodingCache(connectionString);
+#endif
+            return geocodingCache;
+        }
+        public geocode() : this(GetGeocodingCache(), new GoogleMapsGeocodingLookupService()) { }
     }
 }

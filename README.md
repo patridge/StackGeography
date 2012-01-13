@@ -1,6 +1,6 @@
 ##StackGeography
 
-StackGeography is a mapping of recent question from the [Stack Exchange API][1] on a  [Google Maps API][2] map. All Stack Exchange sites are capable of being polled, though the current selection system filters out the corresponding "Meta *" sites to keep the list from being so long.
+StackGeography is the code behind [stackgeography.com](http://www.stackgeography.com/). Stackgeography.com is a mapping of recent question from [Stack Exchange API][1] sites on a [Google Maps API][2] map. All Stack Exchange sites are capable of being polled, though the current selection system filters out the corresponding "Meta *" sites to keep the list from being so long.
 
 ###Coming Soon
 
@@ -9,7 +9,6 @@ While everything is in a fairly stable state, I do plan to add a number of addit
 * _Multiple site polling concurrently_ Currently, you can stop polling one site and switch to another and maintain existing markers. I would like to make the first window a set of checkboxes and poll them all concurrently. Of course, this probably won't happen until I can figure out how to get the most out of the Stack Exchange API quota.
 * _Additional data visualization_ I would like to add some indicators to the question info window to indicate votes/score, answered status, and number of answers.
 * _Refactoring everywhere_ I hope to extract a number of parts from the JavaScript I wrote for this project into reusable chunks, some of which may end up as separate projects (e.g., my wrapper for Google Maps to make it play well with jQuery's deferred system).
-* _[Stack Exchange API Filters](http://kevinmontrose.com/2012/01/06/stack-exchange-api-v2-0-filters/)_ Using filters will greatly reduce the data that the Stack Exchange API has to send back to me for each request. Since I use very little of what I get back, filters should make my responses reflect that.
 
 ###APIs Used
 
@@ -41,6 +40,10 @@ I wanted to put together a mapping demo that I could use for a demo project of a
 I started everything in [jsFiddle](http://jsfiddle.net). After exactly 337 revisions over a week through jsFiddle, I decided to put the code and markup somewhere more permanent. I went out and registered a domain and set up this repository. I have started working on getting it hosted through [AppHarbor](https://appharbor.com/) but I haven't nailed that down yet as I am still picking up Git, GitHub, and AppHarbor.
 
 ###Release Notes
+
+####2012-01-13
+
+Added filters to the Stack Exchange API calls to cut down on JSON coming back from those requests.
 
 ####2009-01-09
 
