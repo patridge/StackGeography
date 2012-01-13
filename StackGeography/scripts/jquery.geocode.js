@@ -42,7 +42,7 @@
                                     if (null === currentCachedGeocodeResult) {
                                         geocodeCache[geocodeCache.length] = {
                                             location: location,
-                                            results: data.result
+                                            result: data.result
                                         };
                                         if (geocodeCache.length > maxGeocodeCachesize) {
                                             geocodeCache.splice(0, 1);
