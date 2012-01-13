@@ -10,6 +10,13 @@ using System.Data.SqlServerCe;
         public override IDbConnection GetDbConnection() {
             return new SqlConnection(this.ConnectionString);
         }
+        // Need to have TRY/CATCH for locking problems on live SQL Server (SQLCE doesn't support it, though).
+        private const string tryCatchInsertSql = "BEGIN TRY INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES (@location, @latitude, @longitude); END TRY BEGIN CATCH IF ERROR_NUMBER() <> 2627 BEGIN DECLARE @errorMessage NVARCHAR(4000), @errorSeverity INT, @errorState INT; SELECT @errorMessage = ERROR_MESSAGE(), @errorSeverity = ERROR_SEVERITY(), @errorState = ERROR_STATE(); RAISERROR (@errorMessage, @errorSeverity, @errorState); END END CATCH";
+        protected override string InsertGeocodingResult {
+            get {
+                return tryCatchInsertSql;
+            }
+        }
         public SqlServerGeocodingCache(string connectionString) : base(connectionString) { }
     }
     public class SqlCeGeocodingCache : DbConnectionGeocodingCache {
@@ -48,7 +55,12 @@ using System.Data.SqlServerCe;
             }
             return result;
         }
-        private const string insertGeocodingResult = "INSERT INTO GeocodingResults SELECT @location Location, @latitude Latitude, @longitude Longitude WHERE NOT EXISTS (SELECT 1 FROM GeocodingResults WITH (UPDLOCK, HOLDLOCK) WHERE Location = @location)";
+        private const string plainInsertSql = "INSERT INTO GeocodingResults SELECT @location Location, @latitude Latitude, @longitude Longitude WHERE NOT EXISTS (SELECT 1 FROM GeocodingResults WITH (UPDLOCK, HOLDLOCK) WHERE Location = @location)";
+        protected virtual string InsertGeocodingResult {
+            get {
+                return plainInsertSql;
+            }
+        }
         public void Store(GeocodingResult geocodingResult) {
             if (geocodingResult == null) {
                 return;
@@ -58,7 +70,7 @@ using System.Data.SqlServerCe;
             decimal? longitude = coords != null ? coords.Longitude : (decimal?)null;
             using (IDbConnection connection = this.GetDbConnection()) {
                 connection.Open();
-                connection.Execute(insertGeocodingResult, new { location = geocodingResult.Location.ToUpperInvariant(), latitude = latitude, longitude = longitude });
+                connection.Execute(InsertGeocodingResult, new { location = geocodingResult.Location.ToUpperInvariant(), latitude = latitude, longitude = longitude });
             }
         }
     }
