@@ -1,6 +1,5 @@
 Allow batched geocoding requests to server-side handler.
 Create server SQL-based cache to SE API requests, especially sites (e.g., ASP.NET web cache proxy for SE API).
-Allow <kbd>Enter</kbd> to submit site selection.
 Closure Compile main script file.
 site-based marker images.
 Stagger marker placement/animation (deferred chaining, ideally) (with option to disable).
@@ -14,7 +13,6 @@ Options:
   offer site list customization (stored to localStorage), with option to clear it
   clear current markers
 Keyboard shortcuts
-  [some key]: start polling
   [some key]: poll current site now (with debounce, http://benalman.com/projects/jquery-throttle-debounce-plugin/)
   [some key]: clear markers
 Offer authentication to boost per-user quota.

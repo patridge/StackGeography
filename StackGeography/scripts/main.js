@@ -121,15 +121,20 @@ $(function () {
         },
         failCount = 0,
         maxFailCount = 5,
-        stopPoll = function () {
+        stopPendingPoll = function () {
             if (pendingPoll) {
                 clearTimeout(pendingPoll);
                 keepPolling = false;
             }
+        },
+        stopPoll = function () {
+            stopPendingPoll();
             $startPolling.show();
             $stopPolling.hide();
         },
         poll = function (siteInfo) {
+            // With new keyboard shortcut for site window, this is required to keep from polling multiple sites (and not being able to cancel them all).
+            stopPendingPoll();
             if (map) {
                 keepPolling = true;
                 $startPolling.hide();
@@ -163,7 +168,15 @@ $(function () {
             title: "Pick a site",
             modal: true,
             closeOnEscape: false,
-            open: function () { $(".ui-dialog-titlebar-close").hide(); },
+            open: function () {
+                $(".ui-dialog-titlebar-close").hide();
+                $(this).on("keyup.enter", function (e) {
+                    if (e.keyCode === $.ui.keyCode.ENTER) {
+                        $(this).dialog("close");
+                        e.preventDefault();
+                    }
+                });
+            },
             height: 350,
             buttons: [
                 {
@@ -178,6 +191,7 @@ $(function () {
                     siteAudience = $selectedSiteInput.data("site-audience"),
                     siteName = $selectedSiteInput.siblings("label").first().text();
                 poll({ filter: siteFilter, url: siteUrl, audience: siteAudience, name: siteName });
+                $(this).off("keyup.enter");
             }
         });
         e.preventDefault();
@@ -185,6 +199,10 @@ $(function () {
     $(document).bind("keydown", "esc", function () {
         stopPoll();
         // NOTE: Not explicitly cancelling event propagation here.
+    });
+    $(document).bind("keyup", "s", function (e) {
+        $startPolling.click();
+        e.preventDefault();
     });
     // Can't register jquery.hotkey for "?". Technically, this registers for "shift+/", which may not be universal, but it will do for now.
     $(document).bind("keyup", function (e) {
@@ -212,8 +230,8 @@ $(function () {
         $.stackExchangeApi.getAllSitesWithMultipleRequests({ pagesize: 100 }).done(function (data) {
             // NOTE: currently omitting meta sites.
             var siteItems = JSLINQ(data).Where(function (site) {
-                    return site.site_type !== "meta_site";
-                }),
+                return site.site_type !== "meta_site";
+            }),
                 $siteCheckboxes = $($("#siteCheckboxesTemplate").render(siteItems.ToArray()));
             $siteCheckboxes.first().find("input").attr("checked", "checked");
             $("#sites").html($siteCheckboxes);

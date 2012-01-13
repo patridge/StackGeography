@@ -10,279 +10,178 @@ CREATE TABLE [dbo].[GeocodingResults](
 ) ON [PRIMARY]
 GO
 
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('AL BURAYMI, OMAN',24.25,24.25);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ALEXANDRIA, VA',38.80,38.80);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('AMSTERDAM, THE NETHERLANDS',52.37,52.37);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ANKARA, TURKEY',39.92,39.92);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ANN ARBOR, MI',42.28,42.28);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ANYWHERE, USA',28.01,28.01);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ARAD, ROMANIA',46.17,46.17);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ARGENTINA',-38.42,-38.42);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ARKANSAS',35.20,35.20);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ASHEVILLE, NC',35.60,35.60);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ASHLAND, OREGON',42.19,42.19);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ATLANTA GA',33.75,33.75);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('AUBURN, WA',47.31,47.31);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('AUCKLAND, NEW ZEALAND',-36.85,-36.85);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('AUSTIN, TX',30.27,30.27);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('AUSTRALIA',-29.53,-29.53);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('AUSTRIA',47.52,47.52);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BAKERSFIELD, CA',35.37,35.37);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BAKU, AZERBAIJAN',40.44,40.44);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BALTIMORE, MD',39.29,39.29);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BANGALORE, INDIA',12.97,12.97);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BANGKOK, THAILAND',13.82,13.82);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BARCELONA, SPAIN',41.39,41.39);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BATH, UNITED KINGDOM',51.38,51.38);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BELARUS, MINSK',53.90,53.90);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BELGIUM',50.50,50.50);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BELGRADE, SERBIA',44.80,44.80);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BERLIN, GERMANY',52.52,52.52);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BH-BRAZIL',-19.92,-19.92);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BIRMINGHAM, UNITED KINGDOM',52.49,52.49);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BLACKSBURG, VA',37.23,37.23);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BOULDER, CO',40.02,40.02);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BRAZIL',-14.24,-14.24);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BRIGHTON, UNITED KINGDOM',50.84,50.84);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BRISTOL, UNITED KINGDOM',51.45,51.45);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BROOKLYN, NY',40.65,40.65);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BUCHAREST, ROMANIA',44.44,44.44);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BUENOS AIRES, ARGENTINA',-34.61,-34.61);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BUFFALO, NY',42.89,42.89);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('BULGARIA',42.73,42.73);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CALDWELL, NJ',40.84,40.84);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CALGARY, CANADA',51.05,51.05);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CALIFORNIA',36.78,36.78);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CALIFORNIA, US',36.78,36.78);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CANADA',56.13,56.13);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CARMEL, IN',39.98,39.98);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CELJE, SLOVENIA',46.23,46.23);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CHESHIRE, UNITED KINGDOM',51.19,51.19);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CHESTER, UNITED KINGDOM',53.19,53.19);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CHEYENNE, WY',41.14,41.14);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CHICAGO, IL',41.88,41.88);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CHILE',-35.68,-35.68);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CINCINNATI, OH',39.10,39.10);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CLEARWATER, FL',27.97,27.97);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('COCHRANE, CANADA',51.19,51.19);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('COIMBATORE, INDIA',11.02,11.02);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('COLOMBO, SRI LANKA',6.93,6.93);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('COLORADO SPRINGS, CO',38.83,38.83);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('COLUMBUS, OH',39.96,39.96);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CONNECTICUT',41.60,41.60);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CORONA, CA',33.88,33.88);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CORVALLIS, OR',44.56,44.56);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('COVENTRY, UNITED KINGDOM',52.41,52.41);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CROATIA',45.10,45.10);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CUPERTINO, CA',37.32,37.32);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('CZECH REPUBLIC',49.82,49.82);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('DALLAS, TX',32.80,32.80);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('DARLINGTON, UNITED KINGDOM',54.52,54.52);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('DAVENPORT, IA',41.52,41.52);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('DELAWARE',38.91,38.91);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('DENMARK',56.26,56.26);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('DEXTER, MI',42.34,42.34);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('DHAKA, BANGLADESH',23.71,23.71);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('DUBLIN, IRELAND',53.34,53.34);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('EARTH',34.23,34.23);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('EARTH, TX',34.23,34.23);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('EAST SCOTLAND',56.49,56.49);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('EDMONTON, CANADA',53.54,53.54);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('EDMONTON, KY',36.98,36.98);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ENGLAND, UNITED KINGDOM',52.36,52.36);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ESSEN, GERMANY',51.46,51.46);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('EVANSTON, IL',42.04,42.04);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('EVERYWHERE',37.67,37.67);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('FARMVILLE, VA',37.30,37.30);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('FINLAND',61.92,61.92);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('FLORIDA',27.66,27.66);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('FORT COLLINS, CO',40.59,40.59);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('FOSSES-LA-VILLE, BELGIUM',50.39,50.39);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('FRANCE',46.23,46.23);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('FRIBOURG, SWITZERLAND',46.80,46.80);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('GERMANY',51.17,51.17);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('GIJ&#243;N, SPAIN',43.55,43.55);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('GLASGOW, UNITED KINGDOM',55.86,55.86);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('GREECE',39.07,39.07);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HAMBURG, GERMANY',53.56,53.56);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HANOVER',37.77,37.77);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HAWAII',19.90,19.90);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HELLO WORLD',13.73,13.73);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HERTFORD, UNITED KINGDOM',51.80,51.80);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HIGHLAND LAKES, NJ',41.18,41.18);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HOLLYWOOD, UNITED KINGDOM',52.40,52.40);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HONG KONG',22.40,22.40);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HOUSTON, TX',29.76,29.76);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HUDDERSFIELD, UNITED KINGDOM',53.65,53.65);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HUNTINGTON BEACH, CA',33.66,33.66);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HYDERABAD',17.39,17.39);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('HYDERABAD, INDIA',17.39,17.39);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('INDIA',20.59,20.59);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('INDIANA',40.55,40.55);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('INDIANA, USA',40.55,40.55);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('INDIANAPOLIS, IN',39.77,39.77);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('INDONESIA',-0.79,-0.79);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('IRAN',32.43,32.43);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ISRAEL',31.05,31.05);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ISTANBUL, TURKEY',41.01,41.01);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ISTANBUL, TURKIYE',41.01,41.01);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ITALY',41.87,41.87);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('IZMIR, TURKEY',38.42,38.42);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('JAIPUR, INDIA',26.91,26.91);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('JERSEY CITY, NJ',40.73,40.73);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('JERUSALEM, ISRAEL',31.77,31.77);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('JOHANNESBURG, SOUTH AFRICA',-26.20,-26.20);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('JULIAN, CA',33.08,33.08);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('JUNEAU, AK',58.30,58.30);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('KENTUCKY',37.84,37.84);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('KIEV, UKRAINE',50.45,50.45);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('KOLKATA, INDIA',22.57,22.57);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('LAGOS, NIGERIA',6.45,6.45);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('LANSING, MI',42.73,42.73);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('LAREDO, TX',27.51,27.51);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('LAS VEGAS, NV',36.11,36.11);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('LATVIA, LUDZA',56.55,56.55);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('LAUSANNE, SWITZERLAND',46.52,46.52);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('LEBANON',33.85,33.85);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('LEGAN&#233;S, SPAIN',40.33,40.33);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('LIMA, PERU',-12.05,-12.05);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('LONDON',51.51,51.51);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('LONDON, UNITED KINGDOM',51.51,51.51);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('LOS ANGELES, CA',34.05,34.05);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MADISON, WI',43.07,43.07);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MADURAI, INDIA',9.93,9.93);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MAINE',45.25,45.25);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MALAYSIA',4.21,4.21);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MANAGUA, NICARAGUA',12.14,12.14);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MANCHESTER, UNITED KINGDOM',53.48,53.48);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MANGALORE, INDIA',12.91,12.91);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MARYLAND',39.05,39.05);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MASSACHUSETTS',42.41,42.41);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MATALE, SRI LANKA',7.47,7.47);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MEXICO CITY, MEXICO',19.43,19.43);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MICHIGAN',44.31,44.31);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MIDDLEBURG, VA',38.97,38.97);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MIDLAND, TX',32.00,32.00);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MIDLANDS, UK',51.36,51.36);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MILAN',45.46,45.46);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MINNEAPOLIS',44.98,44.98);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MINNESOTA',46.73,46.73);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MINSK, BELARUS',53.90,53.90);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MISSOULA, MT',46.87,46.87);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MONTREAL, CANADA',45.51,45.51);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MUMBAI',19.08,19.08);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MUMBAI, INDIA',19.08,19.08);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('MY COMPUTER',40.30,40.30);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NASHVILLE, TN',36.17,36.17);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NEBRASKA',41.49,41.49);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NETHERLANDS',52.13,52.13);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NEW HAMPSHIRE',43.19,43.19);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NEW JERSEY',40.06,40.06);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NEW LONDON, CT',41.36,41.36);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NEW YORK',40.71,40.71);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NEW YORK, NEW YORK',40.71,40.71);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NEW YORK, NY',40.71,40.71);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NEW YORK, UNITED STATES',40.71,40.71);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NEWCASTLE UPON TYNE, UNITED KINGDOM',54.98,54.98);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NIGERIA',9.08,9.08);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NOIDA, INDIA',28.54,28.54);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NORMAL, IL',40.51,40.51);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NORTH CAROLINA',35.76,35.76);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NORTH DAKOTA',47.55,47.55);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NORTH POLE, AK',64.75,64.75);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NORTH RHINE-WESTPHALIA, GERMANY',51.43,51.43);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NORTHEAST PA',41.20,41.20);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NORTHERN IRELAND',54.79,54.79);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NORTHWEST, NC',34.31,34.31);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NORWAY',60.47,60.47);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('NOTTINGHAM, UNITED KINGDOM',52.95,52.95);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('OHIO',40.42,40.42);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('OKLAHOMA',35.01,35.01);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ONTARIO',51.25,51.25);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ONTARIO, CANADA',51.25,51.25);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('OREGON',43.80,43.80);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('OSLO, NORWAY',59.91,59.91);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('OTTAWA, CANADA',45.42,45.42);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('P&#233;CS, HUNGARY',46.07,46.07);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('PARIS, FRANCE',48.86,48.86);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('PASADENA, CA',34.15,34.15);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('PENNSYLVANIA',41.20,41.20);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('PERTH, AUSTRALIA',-31.95,-31.95);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('PHILADELPHIA',39.95,39.95);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('PHILADELPHIA, PA',39.95,39.95);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('PITTSBURGH, PA',40.44,40.44);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('POLAND',51.92,51.92);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('PORTLAND, ME',43.66,43.66);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('POTSDAM, GERMANY',52.39,52.39);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('PUNE, INDIA',18.52,18.52);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('QUEBEC',52.94,52.94);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('RALEIGH, NC',35.77,35.77);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('REDONDO BEACH, CA',33.85,33.85);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('RICHMOND, VA',37.54,37.54);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ROCHESTER, MN',44.02,44.02);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ROCHESTER, NY',43.16,43.16);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ROMANIA',45.94,45.94);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ROSTOCK, GERMANY',54.08,54.08);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ROYAL OAK, MI',42.49,42.49);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('RUSSIA',61.52,61.52);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SALTO, BRAZIL',-23.20,-23.20);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SAN ANTONIO, TX',29.42,29.42);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SAN DIEGO, CA',32.72,32.72);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SAN FRANCISCO, CA',37.77,37.77);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SAN JOSE, CA',37.34,37.34);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SAN MATEO, CA',37.56,37.56);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SARASOTA, FL',27.34,27.34);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SARATOGA SPRINGS, NY',43.08,43.08);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SARATOGA, NY',43.03,43.03);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SCHIEDAM, NETHERLANDS',51.92,51.92);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SCOTLAND',56.49,56.49);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SE USA',37.09,37.09);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SEATTLE, WA',47.61,47.61);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SHREVEPORT, LA',32.53,32.53);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SLOVAKIA',48.67,48.67);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SOUTH CAROLINA',33.84,33.84);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SOUTH KOREA',35.91,35.91);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SOUTH PLAINFIELD, NJ',40.58,40.58);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SPAIN',40.46,40.46);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SPLIT, CROATIA',43.51,43.51);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('STAMFORD, CT',41.05,41.05);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ST-HYACINTHE, CANADA',45.63,45.63);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SUFFOLK, VA',36.73,36.73);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SUNNYVALE, CA',37.37,37.37);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SURABAYA, INDONESIA',-7.29,-7.29);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SURREY, CANADA',49.11,49.11);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SWEDEN',60.13,60.13);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SWINDON, UNITED KINGDOM',52.51,52.51);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SWITZERLAND',46.82,46.82);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('SYDNEY',-33.87,-33.87);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('TALLAHASSEE, FL',30.44,30.44);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('TAMPA, FL',27.95,27.95);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('TARRYTOWN, NY',41.08,41.08);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('TEANECK, NJ',40.90,40.90);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('TEHRAN, IRAN',35.70,35.70);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('TENNESSEE',35.52,35.52);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('TERESINA, BRAZIL',-5.09,-5.09);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('TEXAS',31.97,31.97);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('THE NETHERLANDS',52.13,52.13);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('THESSALONIKI, GREECE',40.64,40.64);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('TORONTO, CANADA',43.65,43.65);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('TURIN, ITALY',45.07,45.07);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('TURKEY',38.96,38.96);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('ULVERSTON, UNITED KINGDOM',54.20,54.20);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('UNITED KINGDOM',55.38,55.38);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('UNITED STATES',37.09,37.09);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('UNIVERSE',14.42,14.42);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('USA',37.09,37.09);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('VALENCIENNES, FRANCE',50.36,50.36);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('VANCOUVER, WA',45.64,45.64);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('VIENNA, AUSTRIA',48.21,48.21);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('VIRGINIA',37.43,37.43);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('WASHINGTON, DC',38.90,38.90);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('WATERLOO, CANADA',43.46,43.46);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('WEST DES MOINES, IA',41.58,41.58);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('WESTERN EUROPE',46.20,46.20);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('WINSTON-SALEM, NC',36.10,36.10);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('WINTER PARK, FL',28.60,28.60);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('WISCONSIN',43.78,43.78);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('YEKATERINBURG, RUSSIA',56.85,56.85);
-INSERT INTO [GeocodingResults] (Location,Latitude,Longitude) VALUES ('YORK, UNITED KINGDOM',53.96,53.96);
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('HERTFORD, UNITED KINGDOM',-0.08,51.80)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NORTHERN IRELAND',-6.49,54.79)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('PHILADELPHIA',-75.16,39.95)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('LONDON, UNITED KINGDOM',-0.13,51.51)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SARASOTA, FL',-82.53,27.34)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ONTARIO, CANADA',-85.32,51.25)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('JOHANNESBURG, SOUTH AFRICA',28.05,-26.20)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SWITZERLAND',8.23,46.82)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('POLAND',19.15,51.92)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('BROOKLYN, NY',-73.95,40.65)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('TEHRAN, IRAN',51.42,35.70)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MONTREAL, CANADA',-73.55,45.51)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('EVERYWHERE',-91.85,37.67)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SURABAYA, INDONESIA',112.73,-7.29)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('GREECE',21.82,39.07)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NORTH POLE, AK',-147.35,64.75)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SAN ANTONIO, TX',-98.49,29.42)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('INDIA',78.96,20.59)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('HOLLYWOOD, UNITED KINGDOM',-1.88,52.40)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('BRIGHTON, UNITED KINGDOM',-0.13,50.84)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('BELGIUM',4.47,50.50)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('COVENTRY, UNITED KINGDOM',-1.52,52.41)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('WESTERN EUROPE',1.26,46.20)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('DEXTER, MI',-83.89,42.34)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MUMBAI, INDIA',72.88,19.08)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('QUEBEC',-73.55,52.94)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('UNITED STATES',-95.71,37.09)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MALAYSIA',101.98,4.21)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('YORK, UNITED KINGDOM',-1.08,53.96)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('COIMBATORE, INDIA',76.96,11.02)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('OSLO, NORWAY',10.75,59.91)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('EARTH',-102.41,34.23)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('RUSSIA',105.32,61.52)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('FINLAND',25.75,61.92)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('LONDON',-0.13,51.51)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MADISON, WI',-89.40,43.07)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('TORONTO, CANADA',-79.38,43.65)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ENGLAND, UNITED KINGDOM',-1.17,52.36)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ALEXANDRIA, VA',-77.05,38.80)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('PHILADELPHIA, PA',-75.16,39.95)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SPLIT, CROATIA',16.44,43.51)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('LANSING, MI',-84.56,42.73)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NEBRASKA',-99.90,41.49)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MINNESOTA',-94.69,46.73)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ISRAEL',34.85,31.05)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('BANGALORE, INDIA',77.59,12.97)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('HANOVER',-77.37,37.77)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CZECH REPUBLIC',15.47,49.82)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('VIRGINIA',-78.66,37.43)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ARKANSAS',-91.83,35.20)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('STAMFORD, CT',-73.54,41.05)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CELJE, SLOVENIA',15.26,46.23)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ATLANTA GA',-84.39,33.75)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('AMSTERDAM, THE NETHERLANDS',4.90,52.37)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CHILE',-71.54,-35.68)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('HELLO WORLD',100.53,13.73)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('HUDDERSFIELD, UNITED KINGDOM',-1.79,53.65)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SPAIN',-3.75,40.46)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('VALENCIENNES, FRANCE',3.52,50.36)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NEW JERSEY',-74.41,40.06)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('BANGKOK, THAILAND',100.66,13.82)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('BRAZIL',-51.93,-14.24)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('COLUMBUS, OH',-83.00,39.96)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('PITTSBURGH, PA',-80.00,40.44)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('EARTH, TX',-102.41,34.23)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NEW YORK, NY',-74.01,40.71)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('DUBLIN, IRELAND',-6.27,53.34)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('UNITED KINGDOM',-3.44,55.38)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('COLOMBO, SRI LANKA',79.86,6.93)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('AUSTIN, TX',-97.74,30.27)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('RALEIGH, NC',-78.64,35.77)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('LIMA, PERU',-77.06,-12.05)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('BAKU, AZERBAIJAN',49.87,40.44)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('JAIPUR, INDIA',75.79,26.91)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('TAMPA, FL',-82.46,27.95)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('TEXAS',-99.90,31.97)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('GERMANY',10.45,51.17)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NEW YORK, UNITED STATES',-74.01,40.71)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CALIFORNIA',-119.42,36.78)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('HOUSTON, TX',-95.37,29.76)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('JERUSALEM, ISRAEL',35.21,31.77)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('FRANCE',2.21,46.23)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ANYWHERE, USA',-82.40,28.01)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SOUTH KOREA',127.77,35.91)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('DHAKA, BANGLADESH',90.41,23.71)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MANCHESTER, UNITED KINGDOM',-2.25,53.48)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CALGARY, CANADA',-114.06,51.05)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('BERLIN, GERMANY',13.41,52.52)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('BOULDER, CO',-105.27,40.02)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MINNEAPOLIS',-93.26,44.98)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('VANCOUVER, WA',-122.66,45.64)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MARYLAND',-76.64,39.05)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ROCHESTER, MN',-92.47,44.02)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NETHERLANDS',5.29,52.13)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('TURKEY',35.24,38.96)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ITALY',12.57,41.87)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('KOLKATA, INDIA',88.36,22.57)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SCHIEDAM, NETHERLANDS',4.40,51.92)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SUFFOLK, VA',-76.58,36.73)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('AUBURN, WA',-122.23,47.31)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NASHVILLE, TN',-86.78,36.17)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('HAWAII',-155.58,19.90)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('JULIAN, CA',-116.60,33.08)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('LAS VEGAS, NV',-115.17,36.11)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('KENTUCKY',-84.27,37.84)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('COCHRANE, CANADA',-114.47,51.19)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NORTH DAKOTA',-101.00,47.55)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('WASHINGTON, DC',-77.04,38.90)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('PASADENA, CA',-118.14,34.15)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SURREY, CANADA',-122.83,49.11)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SEATTLE, WA',-122.33,47.61)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SOUTH PLAINFIELD, NJ',-74.41,40.58)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CORVALLIS, OR',-123.26,44.56)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('REDONDO BEACH, CA',-118.39,33.85)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CONNECTICUT',-73.09,41.60)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('TARRYTOWN, NY',-73.86,41.08)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SYDNEY',151.21,-33.87)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('PUNE, INDIA',73.86,18.52)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('BUENOS AIRES, ARGENTINA',-58.37,-34.61)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ROCHESTER, NY',-77.61,43.16)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ISTANBUL, TURKEY',28.98,41.01)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CORONA, CA',-117.57,33.88)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CHICAGO, IL',-87.63,41.88)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('FARMVILLE, VA',-78.39,37.30)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MIDLAND, TX',-102.08,32.00)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NORTHWEST, NC',-78.16,34.31)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CUPERTINO, CA',-122.03,37.32)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('PERTH, AUSTRALIA',115.86,-31.95)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NEW YORK, NEW YORK',-74.01,40.71)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ISTANBUL, TURKIYE',28.98,41.01)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SOUTH CAROLINA',-81.16,33.84)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('IRAN',53.69,32.43)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('DARLINGTON, UNITED KINGDOM',-1.56,54.52)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CHESTER, UNITED KINGDOM',-2.89,53.19)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('SAN FRANCISCO, CA',-122.42,37.77)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('LOS ANGELES, CA',-118.24,34.05)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('BATH, UNITED KINGDOM',-2.36,51.38)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MANGALORE, INDIA',74.86,12.91)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NOIDA, INDIA',77.39,28.54)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NORTH CAROLINA',-79.02,35.76)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MY COMPUTER',-76.93,40.30)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CHEYENNE, WY',-104.82,41.14)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('DAVENPORT, IA',-90.58,41.52)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MATALE, SRI LANKA',80.62,7.47)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('UNIVERSE',120.99,14.42)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NORTHEAST PA',-77.19,41.20)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CINCINNATI, OH',-84.51,39.10)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('HIGHLAND LAKES, NJ',-74.46,41.18)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('YEKATERINBURG, RUSSIA',60.60,56.85)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CARMEL, IN',-86.12,39.98)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('EDMONTON, CANADA',-113.49,53.54)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('DALLAS, TX',-96.77,32.80)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MADURAI, INDIA',78.12,9.93)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('CALIFORNIA, US',-119.42,36.78)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('FRIBOURG, SWITZERLAND',7.15,46.80)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('WINSTON-SALEM, NC',-80.24,36.10)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ONTARIO',-85.32,51.25)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NEW YORK',-74.01,40.71)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ROMANIA',24.97,45.94)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('LEBANON',35.86,33.85)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MISSOULA, MT',-113.99,46.87)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('BAKERSFIELD, CA',-119.02,35.37)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('JERSEY CITY, NJ',-74.08,40.73)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ASHEVILLE, NC',-82.55,35.60)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('P&#233;CS, HUNGARY',18.23,46.07)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('NORWAY',8.47,60.47)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('HYDERABAD',78.49,17.39)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('MASSACHUSETTS',-71.38,42.41)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('INDONESIA',113.92,-0.79)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('TENNESSEE',-86.58,35.52)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('HONG KONG',114.11,22.40)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ARGENTINA',-63.62,-38.42)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('THE NETHERLANDS',5.29,52.13)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('ANN ARBOR, MI',-83.74,42.28)
+INSERT INTO GeocodingResults (Location, Latitude, Longitude) VALUES ('HYDERABAD, INDIA',78.49,17.39)
