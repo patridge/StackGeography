@@ -1,6 +1,6 @@
-﻿namespace StackGeography.Models {
+﻿namespace StackGeography.Services {
     using System;
-    using System.Collections.Generic;
+    using StackGeography.Models;
 
     public interface IGeocodingCache {
         GeocodingResult Lookup(string location);

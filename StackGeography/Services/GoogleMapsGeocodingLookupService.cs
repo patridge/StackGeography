@@ -1,8 +1,9 @@
-﻿namespace StackGeography.Models {
+﻿namespace StackGeography.Services {
     using System.IO;
     using System.Net;
     using System.Web;
     using Newtonsoft.Json;
+    using StackGeography.Models;
 
     public class GoogleMapsGeocodingLookupService : IGeocodingLookupService {
         private class GeocodeJsonStructure {
