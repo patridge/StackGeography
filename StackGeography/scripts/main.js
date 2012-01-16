@@ -36,74 +36,62 @@ $(function () {
         },
         getLatest = function (siteInfo) {
             var opts = {
-                site: siteInfo.filter,
-                pagesize: 50,
-                sort: "creation",
-                order: "desc"
-            },
-                getNewQuestions;
+                    site: siteInfo.filter,
+                    pagesize: 50,
+                    sort: "creation",
+                    order: "desc"
+                },
+                getNewQuestionsWithUsers,
+                mapQuestionCoords = $.Deferred();
             if (latestQuestionCreationDate[siteInfo.filter]) {
                 // NOTE: always returns latest question we have already processed (min/fromdate is inclusive).
                 opts.fromdate = latestQuestionCreationDate[siteInfo.filter];
             }
-            getNewQuestions = $.stackExchangeApi.getQuestions(opts);
-            getNewQuestions.always(function () {
+            getNewQuestionsWithUsers = $.stackExchangeApi.getQuestionsWithFullUsers(opts);
+            getNewQuestionsWithUsers.fail(mapQuestionCoords.reject);
+            getNewQuestionsWithUsers.always(function () {
                 pendingPoll = null;
             });
-            getNewQuestions.done(function (data) {
-                var questions = JSLINQ(data.items).Where(function (question) {
-                    return !hasMapMarker(question.question_id);
-                }),
-                    userIds = questions.Select(function (question) {
-                        return question.owner ? question.owner.user_id : null;
-                    }).Distinct(function (userId) {
-                        return userId;
-                    }).Where(function (userId) {
-                        return null !== userId;
+            getNewQuestionsWithUsers.done(function (data) {
+                var questionUserHasLocation = function (questionWithUser) {
+                        return questionWithUser && questionWithUser.user && questionWithUser.user.location;
+                    },
+                    questionsWithUsers = JSLINQ(data.items).Where(function (question) {
+                        return !hasMapMarker(question.question_id);
+                    }),
+                    newestQuestionCreationDate = questionsWithUsers.Select(function (question) {
+                        return question.creation_date;
+                    }).OrderByDescending(function (creationDate) {
+                        return creationDate;
+                    }).First(),
+                    userLocations = questionsWithUsers.Select(function (questionWithUser) {
+                        return questionUserHasLocation(questionWithUser) ? questionWithUser.user.location : null;
+                    }).Distinct(function (location) {
+                        return location;
+                    }).Where(function (location) {
+                        return location !== null && location.length > 0;
                     }).ToArray(),
-                    getUsers = $.stackExchangeApi.getUsers({
-                        site: siteInfo.filter,
-                        ids: userIds
-                    });
+                    getLocationCoords = $.geocode.getStringLatLng(userLocations);
 
-                getUsers.done(function (data) {
-                    var users = JSLINQ(data.items);
-                    questions.Select(function (question) {
-                        var userForQuestion = users.First(function (user) {
-                            return question.owner && question.owner.user_id === user.user_id;
-                        });
-                        if (null !== userForQuestion) {
-                            question.user = userForQuestion;
+                getLocationCoords.done(function (data) {
+                    var locations = data.results;
+                    questionsWithUsers.Each(function (questionWithUser) {
+                        var locationForQuestion = null,
+                            markerOptions = {},
+                            marker;
+                        if (questionUserHasLocation(questionWithUser)) {
+                            locationForQuestion = locations[questionWithUser.user.location.toUpperCase()] || null;
                         }
-                        return question;
-                    }).Each(function (questionWithUserInfo) {
-                        var markerOptions = {},
-                            marker,
-                            getGeocodeLocation = $.Deferred();
-
-                        if (questionWithUserInfo.user && questionWithUserInfo.user.location) {
-                            $.geocode.getStringLatLng(questionWithUserInfo.user.location).done(function (results) {
-                                getGeocodeLocation.resolve(results);
-                            }).fail(function () {
-                                if (useGeocodingFallback) {
-                                    // No location, but we are mapping those to fallback location.
-                                    getGeocodeLocation.resolve(mapFallbackLocation);
-                                } else {
-                                    getGeocodeLocation.reject();
-                                }
-                            });
-                        } else if (useGeocodingFallback) {
-                            // No location, but we are mapping those to fallback location.
-                            getGeocodeLocation.resolve(mapFallbackLocation);
+                        if (null === locationForQuestion &&  useGeocodingFallback) {
+                            locationForQuestion = mapFallbackLocation;
                         }
-
-                        getGeocodeLocation.done(function (geocodedLocation) {
-                            markerOptions.location = geocodedLocation;
-                            markerOptions.title = questionWithUserInfo.title;
+                        if (null !== locationForQuestion) {
+                            markerOptions.location = locationForQuestion;
+                            markerOptions.title = questionWithUser.title;
                             marker = $.googleMaps.createMarker(markerOptions);
-                            marker.id = questionWithUserInfo.question_id;
+                            marker.id = questionWithUser.question_id;
                             marker.placeOnMap(map, {
-                                infoWindowHtml: $.render($.extend(questionWithUserInfo, { site: siteInfo }), infoWindowTemplate),
+                                infoWindowHtml: $.render($.extend(questionWithUser, { site: siteInfo }), infoWindowTemplate),
                                 infoWindowMaxWidth: 250
                             });
                             currentMapMarkers[currentMapMarkers.length] = marker;
@@ -111,13 +99,14 @@ $(function () {
                                 currentMapMarkers[0].clearFromMap();
                                 currentMapMarkers.splice(0, 1);
                             }
-                        });
-                        latestQuestionCreationDate[siteInfo.filter] = !latestQuestionCreationDate[siteInfo.filter] || latestQuestionCreationDate[siteInfo.filter] < questionWithUserInfo.creation_date ? questionWithUserInfo.creation_date : latestQuestionCreationDate[siteInfo.filter];
+                        }
                     });
-                });
-                return getUsers;
+                    // Only update latest question date if all goes well.
+                    latestQuestionCreationDate[siteInfo.filter] = !latestQuestionCreationDate[siteInfo.filter] || latestQuestionCreationDate[siteInfo.filter] < newestQuestionCreationDate ? newestQuestionCreationDate : latestQuestionCreationDate[siteInfo.filter];
+                    mapQuestionCoords.resolve();
+                }).fail(mapQuestionCoords.reject);
             });
-            return getNewQuestions;
+            return mapQuestionCoords;
         },
         failCount = 0,
         maxFailCount = 5,

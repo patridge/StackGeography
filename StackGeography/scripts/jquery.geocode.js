@@ -1,4 +1,4 @@
-/*global jQuery, JSLINQ */
+/*global jQuery, console */
 
 (function ($) {
     "use strict";
@@ -19,44 +19,27 @@
                 });
             },
             getStringLatLng: (function () {
-                var geocodeCache = [],
-                    maxGeocodeCachesize = 50,
-                    cachedGeocodeLocation = function (location) {
-                        var getCachedGeocodeResult = function (locationToFind) {
-                                return JSLINQ(geocodeCache).First(function (geocoding) {
-                                    return geocoding.location === locationToFind;
-                                });
-                            },
-                            geocodeResult = getCachedGeocodeResult(location),
-                            resultDfd = $.Deferred();
-                        if (null !== geocodeResult) {
-                            // Use cached geocoding.
-                            resultDfd.resolve(geocodeResult.result);
-                        } else {
-                            $.ajax({
-                                url: "/geocode.ashx?loc=" + encodeURIComponent(location),
-                                dataType: "json"
-                            }).done(function (data) {
-                                if (null !== data.result) {
-                                    var currentCachedGeocodeResult = getCachedGeocodeResult(location);
-                                    if (null === currentCachedGeocodeResult) {
-                                        geocodeCache[geocodeCache.length] = {
-                                            location: location,
-                                            result: data.result
-                                        };
-                                        if (geocodeCache.length > maxGeocodeCachesize) {
-                                            geocodeCache.splice(0, 1);
-                                        }
-                                    }
-                                    resultDfd.resolve(data.result);
-                                } else {
-                                    resultDfd.reject();
+                var locationsMaxLength = 100,
+                    geocodeLocations = function (locations) {
+                        var locationsJoined;
+                        if (locations instanceof Array) {
+                            if (locations.length > locationsMaxLength) {
+                                if (console && console.warn) {
+                                    console.warn("Cannot pass more than " + locationsMaxLength + ". Locations were trimmed to " + locationsMaxLength + ".");
                                 }
-                            }).fail(resultDfd.reject);
+                                locations = locations.splice(0, locationsMaxLength);
+                            }
+                            locationsJoined = locations.join(";").toUpperCase();
+                        } else {
+                            locationsJoined = locations;
                         }
-                        return resultDfd;
+
+                        return $.ajax({
+                            url: "/geocode.ashx?locs=" + encodeURIComponent(locationsJoined),
+                            dataType: "json"
+                        });
                     };
-                return cachedGeocodeLocation;
+                return geocodeLocations;
             }())
         }
     });

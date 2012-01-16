@@ -57,6 +57,39 @@
             url = getApiUrlWithOptions("/2.0/questions/", opts);
         return getApiDataPromise(url);
     };
+    $.stackExchangeApi.getQuestionsWithFullUsers = function (options) {
+        var getQuestions = $.stackExchangeApi.getQuestions(options),
+            resultDfd = $.Deferred();
+        getQuestions.done(function (data) {
+            var questions = JSLINQ(data.items),
+                userIds = questions.Select(function (question) {
+                    return question.owner ? question.owner.user_id : null;
+                }).Distinct(function (userId) {
+                    return userId;
+                }).Where(function (userId) {
+                    return null !== userId;
+                }).ToArray(),
+                getUsers = $.stackExchangeApi.getUsers({
+                    site: options.site || $.stackExchangeApi.typicalDefaults.site,
+                    ids: userIds
+                });
+
+            getUsers.done(function (data) {
+                var users = JSLINQ(data.items),
+                    questionsWithUsers = questions.Select(function (question) {
+                        var userForQuestion = users.First(function (user) {
+                            return question.owner && question.owner.user_id === user.user_id;
+                        });
+                        if (null !== userForQuestion) {
+                            question.user = userForQuestion;
+                        }
+                        return question;
+                    });
+                resultDfd.resolve(questionsWithUsers);
+            }).fail(resultDfd.reject);
+        }).fail(resultDfd.reject);
+        return resultDfd.promise();
+    };
     $.stackExchangeApi.getUsers = function (options) {
         var opts = $.extend({}, $.stackExchangeApi.typicalDefaults, { sort: "reputation" }, options),
             url = getApiUrlWithOptions("/2.0/users/", opts);
@@ -82,4 +115,4 @@
         // NOTE: when there are more than 100 sites, this will not get them all.
         return getApiDataPromise(url);
     };
-} (jQuery));
+}(jQuery));
