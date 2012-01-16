@@ -6,6 +6,7 @@
     using StackGeography.Models;
 
     public class GoogleMapsGeocodingLookupService : IGeocodingLookupService {
+#pragma warning disable 649 // These fields are assigned to via JSON deserialization, so ignore "never assigned to" warnings.
         private class GeocodeJsonStructure {
             public class ResultsItem {
                 public class GeometryData {
@@ -20,6 +21,7 @@
             public string status;
             public ResultsItem[] results;
         }
+#pragma warning restore 649
 
         private static GeocodingLookupServiceResult.LookupStatus ParseLookupStatus(string googleStatus) {
             GeocodingLookupServiceResult.LookupStatus status;
