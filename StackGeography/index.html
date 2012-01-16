@@ -46,7 +46,7 @@
 				</div>
 				<div>
 					<a href="{{=user.link}}">
-						<img src="{{=site.url}}/users/flair/{{=user.user_id}}.png" width="208" height="58" alt="profile for {{=user.display_name}} at {{=site.name}}, Q&amp;A for {{=site.audience}}" title="profile for {{=user.display_name}} at {{=site.name}}, Q&amp;A for {{=site.audience}}">
+						<img src="{{=site.url}}/users/flair/{{=user.user_id}}.png" width="208" height="58" alt="profile for {{=user.display_name}} at {{=site.name!}}, Q&amp;A for {{=site.audience!}}" title="profile for {{=user.display_name}} at {{=site.name!}}, Q&amp;A for {{=site.audience!}}">
 					</a>
 					<p>{{=user.location!}}</p>
 				</div>
@@ -54,7 +54,7 @@
 		</div>
 	</script>
 	<script type="text/x-jquery-tmpl" id="siteCheckboxesTemplate">
-		<li><input type="radio" name="sites" id="{{=api_site_parameter}}" value="{{=api_site_parameter}}" data-site-url="{{=site_url}}" data-site-audience="{{=audience}}" /><label for="{{=api_site_parameter}}"><img src="{{=icon_url}}" alt="{{=name}}" />{{=name}}</label></li>
+		<li><input type="radio" name="sites" id="{{=api_site_parameter}}" value="{{=api_site_parameter}}" data-site-url="{{=site_url}}" data-site-audience="{{=audience}}" /><label for="{{=api_site_parameter}}"><img src="{{=icon_url}}" alt="{{=name!}}" />{{=name!}}</label></li>
 	</script>
 	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
 	<script type="text/javascript" src="/scripts/stackgeography.201201112041.min.js"></script>

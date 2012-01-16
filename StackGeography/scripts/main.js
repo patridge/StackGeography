@@ -27,7 +27,6 @@ $(function () {
         $startPolling = $("#start-polling"),
         $stopPolling = $("#stop-polling"),
         keepPolling = true,
-        pendingPoll,
         pollingWait = 60000,
         hasMapMarker = function (id) {
             return JSLINQ(currentMapMarkers).Any(function (currentMarker) {
@@ -49,9 +48,6 @@ $(function () {
             }
             getNewQuestionsWithUsers = $.stackExchangeApi.getQuestionsWithFullUsers(opts);
             getNewQuestionsWithUsers.fail(mapQuestionCoords.reject);
-            getNewQuestionsWithUsers.always(function () {
-                pendingPoll = null;
-            });
             getNewQuestionsWithUsers.done(function (data) {
                 var questionUserHasLocation = function (questionWithUser) {
                         return questionWithUser && questionWithUser.user && questionWithUser.user.location;
