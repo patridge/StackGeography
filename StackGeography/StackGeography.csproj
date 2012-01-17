@@ -49,7 +49,7 @@
     <Content Include="scripts\JSLINQ.js" />
     <Content Include="scripts\jsrender.js" />
     <Content Include="scripts\main.js" />
-    <Content Include="scripts\stackgeography.201201112041.min.js" />
+    <Content Include="scripts\stackgeography.201201171142.min.js" />
     <Content Include="scripts\uri.js" />
     <Content Include="styles\main.201201101208.min.css" />
     <Content Include="styles\site-defaults.css" />

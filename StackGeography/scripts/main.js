@@ -33,7 +33,7 @@ $(function () {
                 return currentMarker.questionId && currentMarker.questionId === id;
             });
         },
-        getLatest = function (siteInfo) {
+        markLatestQuestionsOnMap = function (siteInfo) {
             var opts = {
                     site: siteInfo.filter,
                     pagesize: 50,
@@ -146,7 +146,7 @@ $(function () {
                 $startPolling.hide();
                 $stopPolling.show();
 
-                getLatest(siteInfo).always(function () {
+                markLatestQuestionsOnMap(siteInfo).always(function () {
                     if (keepPolling) {
                         // pollingUtility.queue will take care of clearning any existing poll for this site.
                         pollingUtility.queue(siteInfo.filter, function () { startPolling(siteInfo); }, pollingWait);
@@ -238,8 +238,8 @@ $(function () {
         $.stackExchangeApi.getAllSitesWithMultipleRequests({ pagesize: 100 }).done(function (data) {
             // NOTE: currently omitting meta sites.
             var siteItems = JSLINQ(data).Where(function (site) {
-                return site.site_type !== "meta_site";
-            }),
+                    return site.site_type !== "meta_site";
+                }),
                 $siteCheckboxes = $($("#siteCheckboxesTemplate").render(siteItems.ToArray()));
             $siteCheckboxes.first().find("input").attr("checked", "checked");
             $("#sites").html($siteCheckboxes);
