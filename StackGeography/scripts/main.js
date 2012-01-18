@@ -184,6 +184,7 @@ $(function () {
                         e.preventDefault();
                     }
                 });
+                $(this).find("input[name='sites']:checked").focus();
             },
             height: 350,
             buttons: [
