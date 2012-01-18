@@ -1,4 +1,4 @@
-﻿namespace StackGeography {
+﻿namespace StackGeography.Controllers {
     using System;
     using System.Collections;
     using System.Collections.Concurrent;
@@ -6,28 +6,15 @@
     using System.Configuration;
     using System.Linq;
     using System.Threading.Tasks;
-    using System.Web;
-    using Newtonsoft.Json;
+    using System.Web.Mvc;
     using StackGeography.Models;
     using StackGeography.Services;
 
-    public class geocode : IHttpHandler {
-        private GeocodingResult getGeocoding(string location) {
-            GeocodingResult result = this.GeocodingCache.Lookup(location);
-            if (result == null) {
-                GeocodingLookupServiceResult lookupResult = this.GeocodingLookupService.Geocode(location);
-                if (lookupResult.Status == GeocodingLookupServiceResult.LookupStatus.Ok
-                    || lookupResult.Status == GeocodingLookupServiceResult.LookupStatus.ZeroResults) {
-                    // Cache successful results (including no-such-address results).
-                    this.GeocodingCache.Store(lookupResult);
-                }
-                result = lookupResult;
-            }
-            return result;
-        }
-        public void ProcessRequest(HttpContext context) {
-            context.Response.ContentType = "application/json";
-            string[] locations = (context.Request.Params["locs"] ?? "").Split(new[] { ';' }, StringSplitOptions.RemoveEmptyEntries);
+    public class GeocodeController : Controller {
+        [ValidateInput(false)] // Some user locations are UTF encoded (e.g., &#246; => ö)
+        public JsonResult Index(string locs) {
+            // NOTE: Switched from ';'-delimited since encoded UTF chars end with those.
+            string[] locations = (locs ?? "").Split(new[] { "||" }, StringSplitOptions.RemoveEmptyEntries);
             List<Task> locationLookups = new List<Task>();
             ConcurrentDictionary<string, GeocodingResult> results = new ConcurrentDictionary<string, GeocodingResult>();
             foreach (string location in locations) {
@@ -46,18 +33,26 @@
             Task.WaitAll(locationLookups.ToArray());
             // Put into results[location] => { lat, lng }.
             IDictionary massagedDictionary = results.ToDictionary(kvp => kvp.Key, kvp => kvp.Value != null && kvp.Value.Coordinates != null ? new { lat = kvp.Value.Coordinates.Latitude, lng = kvp.Value.Coordinates.Longitude } : (object)null);
-            string jsonResult = JsonConvert.SerializeObject(new { results = massagedDictionary });
-            context.Response.Write(jsonResult);
+            return Json(new { results = massagedDictionary }, JsonRequestBehavior.AllowGet);
         }
 
-        public bool IsReusable {
-            get {
-                return false;
+        private GeocodingResult getGeocoding(string location) {
+            GeocodingResult result = this.GeocodingCache.Lookup(location);
+            if (result == null) {
+                GeocodingLookupServiceResult lookupResult = this.GeocodingLookupService.Geocode(location);
+                if (lookupResult.Status == GeocodingLookupServiceResult.LookupStatus.Ok
+                    || lookupResult.Status == GeocodingLookupServiceResult.LookupStatus.ZeroResults) {
+                    // Cache successful results (including no-such-address results).
+                    this.GeocodingCache.Store(lookupResult);
+                }
+                result = lookupResult;
             }
+            return result;
         }
+
         public IGeocodingCache GeocodingCache { get; set; }
         public IGeocodingLookupService GeocodingLookupService { get; set; }
-        public geocode(IGeocodingCache geocodingCache, IGeocodingLookupService geocodingLookupService) {
+        public GeocodeController(IGeocodingCache geocodingCache, IGeocodingLookupService geocodingLookupService) {
             this.GeocodingCache = geocodingCache;
             this.GeocodingLookupService = geocodingLookupService;
         }
@@ -66,6 +61,6 @@
             IGeocodingCache geocodingCache = new SqlServerGeocodingCache(connectionString);
             return geocodingCache;
         }
-        public geocode() : this(GetGeocodingCache(), new GoogleMapsGeocodingLookupService()) { }
+        public GeocodeController() : this(GetGeocodingCache(), new GoogleMapsGeocodingLookupService()) { }
     }
 }

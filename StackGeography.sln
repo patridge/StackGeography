@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackGeography", "StackGeography\StackGeography.csproj", "{DDA53FCF-72E6-4615-99B8-3C4DD511F318}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "StackGeography", "StackGeography\StackGeography.csproj", "{903E034A-9965-4C88-96B2-C3839D3C912D}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -9,10 +9,10 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{DDA53FCF-72E6-4615-99B8-3C4DD511F318}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{DDA53FCF-72E6-4615-99B8-3C4DD511F318}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{DDA53FCF-72E6-4615-99B8-3C4DD511F318}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{DDA53FCF-72E6-4615-99B8-3C4DD511F318}.Release|Any CPU.Build.0 = Release|Any CPU
+		{903E034A-9965-4C88-96B2-C3839D3C912D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{903E034A-9965-4C88-96B2-C3839D3C912D}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{903E034A-9965-4C88-96B2-C3839D3C912D}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{903E034A-9965-4C88-96B2-C3839D3C912D}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

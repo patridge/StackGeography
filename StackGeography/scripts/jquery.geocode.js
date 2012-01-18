@@ -29,13 +29,14 @@
                                 }
                                 locations = locations.splice(0, locationsMaxLength);
                             }
-                            locationsJoined = locations.join(";").toUpperCase();
+                            // NOTE: Switched from ';'-delimited since encoded UTF chars end with those.
+                            locationsJoined = locations.join("||").toUpperCase();
                         } else {
                             locationsJoined = locations;
                         }
 
                         return $.ajax({
-                            url: "/geocode.ashx?locs=" + encodeURIComponent(locationsJoined),
+                            url: "/geocode/?locs=" + encodeURIComponent(locationsJoined),
                             dataType: "json"
                         });
                     };
