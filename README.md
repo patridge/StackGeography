@@ -41,13 +41,23 @@ I started everything in [jsFiddle](http://jsfiddle.net). After exactly 337 revis
 
 ###Release Notes
 
+####2012-01-18
+
+* Switched to ASP.NET MVC to make it easier to output-cache common API hits on the server.
+
+####2012-01-16
+
+* Added location geocoding in batches (up to 100).
+
 ####2012-01-13
 
-Added filters to the Stack Exchange API calls to cut down on JSON coming back from those requests.
+* Added filters to the Stack Exchange API calls to cut down on JSON coming back from those requests.
+* Switched to SQL Server on AppHarbor to avoid locking issues on geocode cache inserts.
+* Added keyboard shortcuts ('?' brings up hint window).
 
 ####2009-01-09
 
-After being live for just under 24 hours, the Google Maps API started rejecting (403) geocoding requests. Apparently, having everyone throw 50 requests at it for each load (not to mention additional requests for subsequent polls) was a bit mean. There is now a simple server-side proxy for geocoding requests that will cache them.
+* Google Maps 403 issue patched with server-side caching proxy for geocoding API requests.
 
   [1]: http://api.stackexchange.com/docs/
   [2]: http://code.google.com/apis/maps/documentation/javascript/basics.html

@@ -1,5 +1,4 @@
-Allow batched geocoding requests to server-side handler.
-Create server SQL-based cache to SE API requests, especially sites (e.g., ASP.NET web cache proxy for SE API).
+Create server-side output-cache to SE API requests, especially sites (e.g., ASP.NET web cache proxy for SE API).
     Multiple site polling UI (script handling in place)
 Closure Compile main script file.
 site-based marker images.
@@ -16,5 +15,4 @@ Keyboard shortcuts
   [some key]: poll current site now (with debounce, http://benalman.com/projects/jquery-throttle-debounce-plugin/)
   [some key]: clear markers
 Offer authentication to boost per-user quota.
-Figure out if its possible to remove "Server" header from AppHarbor hosting.
 Fix: Mac OS X Lion Safari vertical scrollbar issue (https://github.com/patridge/StackGeography/issues/1).
