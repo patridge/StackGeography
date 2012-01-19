@@ -68,18 +68,18 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
     };
     $.googleMaps.createMarker = function (options) {
         var marker,
-            opts = $.extend({}, $.googleMaps.createMarker.defaults, options);
-
+            opts = $.extend({
+                title: ""
+            }, $.googleMaps.createMarker.defaults, options);
+        
         if (!opts.location || !opts.location.lat || !opts.location.lng) {
             debug("Map marker creation failed: location not given.");
             return;
         }
-
-        marker = new google.maps.Marker({
-            title: opts.title || "",
-            position: new google.maps.LatLng(opts.location.lat, opts.location.lng),
-            animation: opts.animation
-        });
+        opts.position = new google.maps.LatLng(opts.location.lat, opts.location.lng);
+        delete opts.location;
+        
+        marker = new google.maps.Marker(opts);
 
         if (opts.markerImage) {
             marker.setIcon(opts.markerImage);

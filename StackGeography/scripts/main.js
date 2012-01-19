@@ -84,6 +84,11 @@ $(function () {
                         if (null !== locationForQuestion) {
                             markerOptions.location = locationForQuestion;
                             markerOptions.title = questionWithUser.title;
+                            if (siteInfo.iconSrc) {
+                                markerOptions.markerImage = new google.maps.MarkerImage(siteInfo.iconSrc, null, null, null, new google.maps.Size(24, 24));
+                                markerOptions.markerImageShadow = null;
+                                markerOptions.icon = siteInfo.iconSrc;
+                            }
                             marker = $.googleMaps.createMarker(markerOptions);
                             marker.id = questionWithUser.question_id;
                             marker.placeOnMap(map, {
@@ -197,9 +202,10 @@ $(function () {
                 var $selectedSiteInput = $("input[name='sites']:checked"),
                     siteFilter = $selectedSiteInput.val() || "stackoverflow",
                     siteUrl = $selectedSiteInput.data("site-url") || "www.stackoverflow.com",
+                    siteIconSrc = $("label[for='" + $selectedSiteInput.val() + "']").find("img").attr("src") || "http://sstatic.net/stackoverflow/img/apple-touch-icon.png",
                     siteAudience = $selectedSiteInput.data("site-audience"),
                     siteName = $selectedSiteInput.siblings("label").first().text();
-                startPolling({ filter: siteFilter, url: siteUrl, audience: siteAudience, name: siteName });
+                startPolling({ filter: siteFilter, iconSrc: siteIconSrc, url: siteUrl, audience: siteAudience, name: siteName });
                 $(this).off("keyup.enter");
             }
         });
