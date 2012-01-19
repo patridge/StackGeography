@@ -21,11 +21,19 @@ $(function () {
             lng: 106.83397289999994
         }, // Antarctica
         currentMapMarkers = [],
+        options = (function () {
+            var $useSiteIcons = $("#use-site-icons"),
+                $maxMapMarkers = $("#max-marker-count");
+            return {
+                useSiteIcons: function () { return $useSiteIcons.is(":checked"); },
+                maxMapMarkers: function () { return parseInt($maxMapMarkers.val(), 10) || 500; }
+            };
+        }()),
         useGeocodingFallback = false,
-        maxMapMarkers = 500,
         infoWindowTemplate = $.template("infoWindowTemplate", $("#infoWindowTemplate")),
         $startPolling = $("#start-polling"),
         $stopPolling = $("#stop-polling"),
+        $options = $("#options"),
         keepPolling = true,
         pollingWait = 60000,
         hasMapMarker = function (id) {
@@ -84,7 +92,7 @@ $(function () {
                         if (null !== locationForQuestion) {
                             markerOptions.location = locationForQuestion;
                             markerOptions.title = questionWithUser.title;
-                            if (siteInfo.iconSrc) {
+                            if (options.useSiteIcons() && siteInfo.iconSrc) {
                                 markerOptions.markerImage = new google.maps.MarkerImage(siteInfo.iconSrc, null, null, null, new google.maps.Size(24, 24));
                                 markerOptions.markerImageShadow = null;
                                 markerOptions.icon = siteInfo.iconSrc;
@@ -96,7 +104,7 @@ $(function () {
                                 infoWindowMaxWidth: 250
                             });
                             currentMapMarkers[currentMapMarkers.length] = marker;
-                            if (currentMapMarkers.length > maxMapMarkers && currentMapMarkers[0]) {
+                            if (currentMapMarkers.length > options.maxMapMarkers() && currentMapMarkers[0]) {
                                 currentMapMarkers[0].clearFromMap();
                                 currentMapMarkers.splice(0, 1);
                             }
@@ -217,6 +225,30 @@ $(function () {
     });
     $(document).bind("keyup", "s", function (e) {
         $startPolling.click();
+        e.preventDefault();
+    });
+    $(document).bind("keyup", "o", function (e) {
+        $options.dialog({
+            title: "Options",
+            modal: true,
+            closeOnEscape: false,
+            open: function () {
+                $(".ui-dialog-titlebar-close").hide();
+                $(this).on("keyup.enter", function (e) {
+                    if (e.keyCode === $.ui.keyCode.ENTER) {
+                        $(this).dialog("close");
+                        e.preventDefault();
+                    }
+                });
+            },
+            height: 350,
+            buttons: [
+                {
+                    text: "Save", // Values used where they sit, so no actual saving occurs.
+                    click: function () { $(this).dialog("close"); }
+                }
+            ]
+        });
         e.preventDefault();
     });
     // Can't register jquery.hotkey for "?". Technically, this registers for "shift+/", which may not be universal, but it will do for now.
