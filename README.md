@@ -41,6 +41,13 @@ I started everything in [jsFiddle](http://jsfiddle.net). After exactly 337 revis
 
 ###Release Notes
 
+####2012-01-19
+
+* Mark questions with site-specific map markers.
+* Options window:
+  * Toggle site-based map markers vs. generic stackgeography.com map marker.
+  * Change max number of markers shown (default 500).
+
 ####2012-01-18
 
 * Switched to ASP.NET MVC to make it easier to output-cache common API hits on the server.

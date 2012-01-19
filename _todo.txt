@@ -1,7 +1,6 @@
 Create server-side output-cache to SE API requests, especially sites (e.g., ASP.NET web cache proxy for SE API).
     Multiple site polling UI (script handling in place)
 Closure Compile main script file.
-site-based marker images.
 Stagger marker placement/animation (deferred chaining, ideally) (with option to disable).
 Offer about page with details and link to project code on GitHub and link to AppHarbor for the free hosting.
 When sending more than 100 IDs to $.stackExchangeApi.get*, chunk into rejoined 100-per requests (currently warning and splicing).
