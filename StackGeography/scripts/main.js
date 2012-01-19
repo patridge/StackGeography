@@ -245,7 +245,18 @@ $(function () {
             buttons: [
                 {
                     text: "Save", // Values used where they sit, so no actual saving occurs.
-                    click: function () { $(this).dialog("close"); }
+                    click: function () {
+                        var newMaxMarkers = options.maxMapMarkers(),
+                            markersToRemove,
+                            markerIndex;
+                        if (newMaxMarkers < currentMapMarkers.length) {
+                            markersToRemove = currentMapMarkers.splice(0, currentMapMarkers.length - newMaxMarkers);
+                            for (markerIndex = markersToRemove.length - 1; markerIndex >= 0; markerIndex -= 1) {
+                                markersToRemove[markerIndex].clearFromMap();
+                            }
+                        }
+                        $(this).dialog("close");
+                    }
                 }
             ]
         });
