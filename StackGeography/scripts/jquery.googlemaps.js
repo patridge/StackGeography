@@ -1,4 +1,4 @@
-﻿/*global window, jQuery, google */
+﻿/*global window, jQuery, google, URI */
 
 var googleMapsCallback; // Required for Google Maps API to call back when it thinks it is done (vs. when jQuery finishes loading the script file).
 (function ($) {
@@ -49,12 +49,27 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
         googleMapsLoaded.resolve();
     };
     $.googleMaps = {};
-    $.googleMaps.loadApi = function () {
+    $.googleMaps.loadApi = function (options) {
+        var opts = $.extend({}, $.googleMaps.loadApi.defaults, options),
+            url = URI(opts.url);
+        if (opts.key) {
+            url.addSearch("key", opts.key);
+        }
+        if (opts.callback) {
+            url.addSearch("callback", opts.callback);
+        }
+        url.addSearch("sensor", !!opts.sensor);
         $.ajax({
-            url: "/scripts/googlemapsv3.js",
+            url: url,
             dataType: "script"
         }).fail(googleMapsLoaded.reject);
         return googleMapsLoaded.promise();
+    };
+    $.googleMaps.loadApi.defaults = {
+        url: "http://maps.googleapis.com/maps/api/js",
+        key: null,
+        sensor: false,
+        callback: "googleMapsCallback"
     };
     $.googleMaps.createMap = function (element, options) {
         return new google.maps.Map(element, {

@@ -5,7 +5,10 @@ $(function () {
     var stackExchangeApiKey = "BFkB32WKyHjbqI9RYU1lKA((",
         stackExchangeApiFilter = "!Txfh2mrFy-p6RynMil1VXSkHECJn8fbSNFzHmEjS4am",
         latestQuestionCreationDate = {},
-        loadGoogleMaps = $.googleMaps.loadApi(),
+        loadGoogleMaps = $.googleMaps.loadApi({
+            key: "AIzaSyBOT4rTeK6L9WegBXUncMaQHrUULF9UtWM"
+            //, url: "/scripts/googlemapsv3.js"
+        }),
         defaultMapCenterLocation = { lat: 20, lng: 0 }, // Start with a default map center.
         getMapCenter = $.Deferred(function (dfd) {
             $.geocode.getIpLatLng().done(function (userLocation) {

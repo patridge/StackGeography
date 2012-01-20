@@ -4,6 +4,7 @@
     using System.Web;
     using Newtonsoft.Json;
     using StackGeography.Models;
+    using System.Configuration;
 
     public class GoogleMapsGeocodingLookupService : IGeocodingLookupService {
 #pragma warning disable 649 // These fields are assigned to via JSON deserialization, so ignore "never assigned to" warnings.
@@ -46,7 +47,11 @@
         }
         public GeocodingLookupServiceResult Geocode(string location) {
             GeocodingLookupServiceResult result;
+            string googleApiKey = ConfigurationManager.AppSettings["GoogleApiKey"];
             string url = "https://maps.googleapis.com/maps/api/geocode/json?sensor=false&address=" + HttpUtility.UrlEncode(location);
+            if (googleApiKey != null) {
+                url += "&key=" + googleApiKey;
+            }
             WebRequest request = HttpWebRequest.Create(url);
             WebResponse response = request.GetResponse();
             using (StreamReader reader = new StreamReader(response.GetResponseStream())) {
