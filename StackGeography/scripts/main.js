@@ -31,7 +31,7 @@ $(function () {
                 useSiteIcons: function () { return $useSiteIcons.is(":checked"); },
                 maxMapMarkers: function () { return parseInt($maxMapMarkers.val(), 10) || 500; }
             };
-        }()),
+        } ()),
         useGeocodingFallback = false,
         infoWindowTemplate = $.template("infoWindowTemplate", $("#infoWindowTemplate")),
         $startPolling = $("#start-polling"),
@@ -46,11 +46,11 @@ $(function () {
         },
         markLatestQuestionsOnMap = function (siteInfo) {
             var opts = {
-                    site: siteInfo.filter,
-                    pagesize: 50,
-                    sort: "creation",
-                    order: "desc"
-                },
+                site: siteInfo.filter,
+                pagesize: 50,
+                sort: "creation",
+                order: "desc"
+            },
                 getNewQuestionsWithUsers,
                 mapQuestionCoords = $.Deferred();
             if (latestQuestionCreationDate[siteInfo.filter]) {
@@ -61,8 +61,8 @@ $(function () {
             getNewQuestionsWithUsers.fail(mapQuestionCoords.reject);
             getNewQuestionsWithUsers.done(function (data) {
                 var questionUserHasLocation = function (questionWithUser) {
-                        return questionWithUser && questionWithUser.user && questionWithUser.user.location;
-                    },
+                    return questionWithUser && questionWithUser.user && questionWithUser.user.location;
+                },
                     questionsWithUsers = JSLINQ(data.items).Where(function (question) {
                         return !hasMapMarker(question.question_id);
                     }),
@@ -89,7 +89,7 @@ $(function () {
                         if (questionUserHasLocation(questionWithUser)) {
                             locationForQuestion = locations[questionWithUser.user.location.toUpperCase()] || null;
                         }
-                        if (null === locationForQuestion &&  useGeocodingFallback) {
+                        if (null === locationForQuestion && useGeocodingFallback) {
                             locationForQuestion = mapFallbackLocation;
                         }
                         if (null !== locationForQuestion) {
@@ -149,7 +149,7 @@ $(function () {
                 hasPending: hasPending,
                 stopAll: stopAll
             };
-        }()),
+        } ()),
         stopPolling = function () {
             pollingUtility.stopAll();
             $startPolling.show();
@@ -174,7 +174,32 @@ $(function () {
                     }
                 });
             }
-        };
+        },
+        preferences = (function () {
+            var siteSelectionKey = "siteSelection",
+                getItem = function (key) {
+                    var result = null;
+                    if (localStorage && localStorage.getItem) {
+                        result = localStorage.getItem(key);
+                    }
+                    return result;
+                },
+                setItem = function (key, value) {
+                    if (localStorage && localStorage.setItem) {
+                        try {
+                            localStorage.setItem(key, value);
+                        } catch (e) {
+                            if (e == QUOTA_EXCEEDED_ERR && console && console.error) {
+                                console.error("`localStorage` quota exceeded.");
+                            }
+                        }
+                    }
+                };
+            return {
+                getSiteSelection: function () { return getItem(siteSelectionKey); },
+                setSiteSelection: function (value) { setItem(siteSelectionKey, value); }
+            };
+        } ());
 
     // Set Stack Exchange API app key for all requests.
     $.stackExchangeApi.typicalDefaults = $.extend($.stackExchangeApi.typicalDefaults, {
@@ -193,14 +218,17 @@ $(function () {
             modal: true,
             closeOnEscape: false,
             open: function () {
+                var savedSiteSelection = preferences.getSiteSelection(),
+                    $this = $(this);
                 $(".ui-dialog-titlebar-close").hide();
-                $(this).on("keyup.enter", function (e) {
+                $this.on("keyup.enter", function (e) {
                     if (e.keyCode === $.ui.keyCode.ENTER) {
                         $(this).dialog("close");
                         e.preventDefault();
                     }
                 });
-                $(this).find("input[name='sites']:checked").focus();
+                $("#" + savedSiteSelection).attr("checked", "checked");
+                $this.find("input[name='sites']:checked").focus();
             },
             height: 350,
             buttons: [
@@ -213,9 +241,10 @@ $(function () {
                 var $selectedSiteInput = $("input[name='sites']:checked"),
                     siteFilter = $selectedSiteInput.val() || "stackoverflow",
                     siteUrl = $selectedSiteInput.data("site-url") || "www.stackoverflow.com",
-                    siteIconSrc = $("label[for='" + $selectedSiteInput.val() + "']").find("img").attr("src") || "http://sstatic.net/stackoverflow/img/apple-touch-icon.png",
+                    siteIconSrc = $("label[for='" + siteFilter + "']").find("img").attr("src") || "http://sstatic.net/stackoverflow/img/apple-touch-icon.png",
                     siteAudience = $selectedSiteInput.data("site-audience"),
                     siteName = $selectedSiteInput.siblings("label").first().text();
+                preferences.setSiteSelection(siteFilter);
                 startPolling({ filter: siteFilter, iconSrc: siteIconSrc, url: siteUrl, audience: siteAudience, name: siteName });
                 $(this).off("keyup.enter");
             }
@@ -291,8 +320,8 @@ $(function () {
         $.stackExchangeApi.getAllSitesWithMultipleRequests({ pagesize: 100 }).done(function (data) {
             // NOTE: currently omitting meta sites.
             var siteItems = JSLINQ(data).Where(function (site) {
-                    return site.site_type !== "meta_site";
-                }),
+                return site.site_type !== "meta_site";
+            }),
                 $siteCheckboxes = $($("#siteCheckboxesTemplate").render(siteItems.ToArray()));
             $siteCheckboxes.first().find("input").attr("checked", "checked");
             $("#sites").html($siteCheckboxes);
