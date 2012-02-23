@@ -32,6 +32,7 @@
 		<ul>
 			<li><input type="checkbox" id="use-site-icons" {{#if useSiteIcons}}checked="checked"{{/if}} /><label for="use-site-icons">Use site icons</label></li>
 			<li><input type="number" id="max-marker-count" value="{{=maxMapMarkers}}" /><label for="max-marker-count">Max markers</label></li>
+			<li>Polling is currently hard-coded at 60s</li>
 		</ul>
 	</script>
 	<div id="polling" class="hidden">
@@ -40,7 +41,7 @@
 	</div>
 	<script type="text/x-jquery-tmpl" id="pollingTemplate">
 		{{#each}}
-			<li>{{=id}} <a href="#" class="cancel" data-poll-id={{=id}}>Cancel</a></li>
+			<li><img src="{{=iconSrc}}" alt="{{=name!}}" /> {{=name!}} <a href="#" class="cancel" data-poll-id={{=filter}}>Cancel</a></li>
 		{{/each}}
 	</script>
 	<script type="text/x-jquery-tmpl" id="infoWindowTemplate">

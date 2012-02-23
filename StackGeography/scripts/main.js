@@ -255,20 +255,31 @@ $(function () {
     });
     $(document).bind("keyup", "p", function (e) {
         var currentPolls = $.polling.getCurrentQueue(),
+            currentPollData = JSLINQ(currentPolls).Select(function (poll) {
+                var $siteItem = $("input[name='sites'][value='" + poll.id + "']"),
+                    siteFilter = $siteItem.val(),
+                    siteUrl = $siteItem.data("site-url"),
+                    siteIconSrc = $("label[for='" + siteFilter + "']").find("img").attr("src"),
+                    siteAudience = $siteItem.data("site-audience"),
+                    siteName = $siteItem.siblings("label").first().text();
+                return { filter: siteFilter, iconSrc: siteIconSrc, url: siteUrl, audience: siteAudience, name: siteName };
+            }),
             $dialogHtml;
         if (currentPolls.length > 0) {
             $polling.find("p").hide();
-            $dialogHtml = $($.render(currentPolls, pollingTemplate));
-            $dialogHtml.on("click.pollingcancel", "a.cancel", function (e) {
+            $dialogHtml = $($.render(currentPollData.items, pollingTemplate));
+            $dialogHtml.on("click", "a.cancel", function (e) {
                 var $this = $(this);
                 $.polling.stopPending($this.data("poll-id"));
                 $this.parent("li").remove();
                 if ($polling.find("li").length === 0) {
+                    // Done to toggle the stop link.
+                    stopAllPolling();
                     $polling.find("p").show();
                 }
                 e.preventDefault();
             });
-            $polling.find("ul").remove("li").html($dialogHtml);
+            $polling.find("ul").html($dialogHtml);
         } else {
             $polling.find("p").show();
         }
@@ -285,14 +296,14 @@ $(function () {
                 });
             },
             close: function () {
-                $dialogHtml.off("click.pollingcancel");
+                $polling.find("ul li").remove();
             },
             height: 350,
             buttons: {
                 "Cancel All": function () {
                     stopAllPolling();
-					$(this).dialog("close");
-				},
+                    $(this).dialog("close");
+                },
                 "Close": function () {
                     $(this).dialog("close");
                 }
@@ -326,8 +337,8 @@ $(function () {
         $.stackExchangeApi.getAllSitesWithMultipleRequests({ pagesize: 100 }).done(function (data) {
             // NOTE: currently omitting meta sites.
             var siteItems = JSLINQ(data).Where(function (site) {
-                return site.site_type !== "meta_site";
-            }),
+                    return site.site_type !== "meta_site";
+                }),
                 $siteCheckboxes = $($("#siteCheckboxesTemplate").render(siteItems.ToArray()));
             $siteCheckboxes.first().find("input").attr("checked", "checked");
             $("#sites").html($siteCheckboxes);

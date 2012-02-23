@@ -8,6 +8,6 @@ kbd { color: black; background: #EEE; border-width: 1px 3px 3px 1px; border-styl
 .question-hyperlink { font-weight: bold; }
 #site-selection fieldset { border: 1px solid #000; padding: 10px; }
 #site-selection ul { list-style: none; }
-#site-selection img { width: 30px; height: 30px; }
+#polling img, #site-selection img { width: 30px; height: 30px; }
 #site-selection .ui-dialog-buttonpane { margin: 0; }
 #max-marker-count { width: 60px; }
