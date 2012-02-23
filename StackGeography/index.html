@@ -27,11 +27,13 @@
 		</ul>
 	</div>
 	<div id="options" class="hidden">
-		<ul>
-			<li><input type="checkbox" id="use-site-icons" checked="checked" /><label for="use-site-icons">Use site icons</label></li>
-			<li><input type="number" id="max-marker-count" value="500" /><label for="max-marker-count">Max markers</label></li>
-		</ul>
 	</div>
+	<script type="text/x-jquery-tmpl" id="optionsTemplate">
+		<ul>
+			<li><input type="checkbox" id="use-site-icons" {{#if useSiteIcons}}checked="checked"{{/if}} /><label for="use-site-icons">Use site icons</label></li>
+			<li><input type="number" id="max-marker-count" value="{{=maxMapMarkers}}" /><label for="max-marker-count">Max markers</label></li>
+		</ul>
+	</script>
 	<script type="text/x-jquery-tmpl" id="infoWindowTemplate">
 		<div class="info-window-content">
 			<div class="site-{{=site.filter}}">

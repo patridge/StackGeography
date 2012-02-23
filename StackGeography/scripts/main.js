@@ -10,14 +10,7 @@ $(function () {
             //, url: "/scripts/googlemapsv3.js"
         }),
         preferences = $.stackgeography.preferences,
-        options = (function () {
-            var $useSiteIcons = $("#use-site-icons"),
-                $maxMapMarkers = $("#max-marker-count");
-            return {
-                useSiteIcons: function () { return $useSiteIcons.is(":checked"); },
-                maxMapMarkers: function () { return parseInt($maxMapMarkers.val(), 10) || 500; }
-            };
-        }()),
+        optionsTemplate = $.template("optionsTemplate", $("#optionsTemplate")),
         defaultMapCenterLocation = preferences.mapCenterLatLng.get(), // Start with a default map center.
         getMapCenter = $.Deferred(function (dfd) {
             $.geocode.getIpLatLng().done(function (userLocation) {
@@ -62,8 +55,8 @@ $(function () {
             getNewQuestionsWithUsers.fail(mapQuestionCoords.reject);
             getNewQuestionsWithUsers.done(function (data) {
                 var questionUserHasLocation = function (questionWithUser) {
-                    return questionWithUser && questionWithUser.user && questionWithUser.user.location;
-                },
+                        return questionWithUser && questionWithUser.user && questionWithUser.user.location;
+                    },
                     questionsWithUsers = JSLINQ(data.items).Where(function (question) {
                         return !hasMapMarker(question.question_id);
                     }),
@@ -82,7 +75,8 @@ $(function () {
                     getLocationCoords = $.geocode.getStringLatLng(userLocations);
 
                 getLocationCoords.done(function (data) {
-                    var locations = data.results;
+                    var locations = data.results,
+                        currentMaxMapMarkers = preferences.maxMapMarkers.get();
                     questionsWithUsers.Each(function (questionWithUser) {
                         var locationForQuestion = null,
                             markerOptions = {},
@@ -96,7 +90,7 @@ $(function () {
                         if (null !== locationForQuestion) {
                             markerOptions.location = locationForQuestion;
                             markerOptions.title = questionWithUser.title;
-                            if (options.useSiteIcons() && siteInfo.iconSrc) {
+                            if (preferences.useSiteIcons.get() && siteInfo.iconSrc) {
                                 markerOptions.markerImage = new $.googleMaps.MarkerImage(siteInfo.iconSrc, null, null, null, { width: 24, height: 24 });
                                 markerOptions.markerImageShadow = null;
                                 markerOptions.icon = siteInfo.iconSrc;
@@ -108,7 +102,7 @@ $(function () {
                                 infoWindowMaxWidth: 250
                             });
                             currentMapMarkers[currentMapMarkers.length] = marker;
-                            if (currentMapMarkers.length > options.maxMapMarkers() && currentMapMarkers[0]) {
+                            if (currentMapMarkers.length > currentMaxMapMarkers && currentMapMarkers[0]) {
                                 currentMapMarkers[0].clearFromMap();
                                 currentMapMarkers.splice(0, 1);
                             }
@@ -236,6 +230,12 @@ $(function () {
         e.preventDefault();
     });
     $(document).bind("keyup", "o", function (e) {
+        var prefs = {
+                useSiteIcons: $.stackgeography.preferences.useSiteIcons.get(),
+                maxMapMarkers: $.stackgeography.preferences.maxMapMarkers.get()
+            },
+            optionsHtml = $.render(prefs, optionsTemplate);
+        $options.html(optionsHtml);
         $options.dialog({
             title: "Options",
             modal: true,
@@ -250,23 +250,29 @@ $(function () {
                 });
             },
             height: 350,
-            buttons: [
-                {
-                    text: "Save", // Values used where they sit, so no actual saving occurs.
-                    click: function () {
-                        var newMaxMarkers = options.maxMapMarkers(),
-                            markersToRemove,
-                            markerIndex;
-                        if (newMaxMarkers < currentMapMarkers.length) {
-                            markersToRemove = currentMapMarkers.splice(0, currentMapMarkers.length - newMaxMarkers);
+            buttons: {
+                "Cancel": function () {
+					$(this).dialog("close");
+				},
+                "Save": function () {
+                    var newUseSiteIcons = $options.find("#use-site-icons").is(":checked"),
+                        newMaxMapMarkers = $options.find("#max-marker-count").val(),
+                        markersToRemove,
+                        markerIndex;
+                    preferences.useSiteIcons.set(newUseSiteIcons);
+                    if (newMaxMapMarkers > 0) {
+                        preferences.maxMapMarkers.set(newMaxMapMarkers);
+                        if (newMaxMapMarkers < currentMapMarkers.length) {
+                            // Reducing max: yank any old markers until we meet the new max.
+                            markersToRemove = currentMapMarkers.splice(0, currentMapMarkers.length - newMaxMapMarkers);
                             for (markerIndex = markersToRemove.length - 1; markerIndex >= 0; markerIndex -= 1) {
                                 markersToRemove[markerIndex].clearFromMap();
                             }
                         }
-                        $(this).dialog("close");
                     }
+                    $(this).dialog("close");
                 }
-            ]
+            }
         });
         e.preventDefault();
     });
