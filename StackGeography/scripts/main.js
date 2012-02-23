@@ -9,7 +9,16 @@ $(function () {
             key: "AIzaSyBOT4rTeK6L9WegBXUncMaQHrUULF9UtWM"
             //, url: "/scripts/googlemapsv3.js"
         }),
-        defaultMapCenterLocation = { lat: 20, lng: 0 }, // Start with a default map center.
+        preferences = $.stackgeography.preferences,
+        options = (function () {
+            var $useSiteIcons = $("#use-site-icons"),
+                $maxMapMarkers = $("#max-marker-count");
+            return {
+                useSiteIcons: function () { return $useSiteIcons.is(":checked"); },
+                maxMapMarkers: function () { return parseInt($maxMapMarkers.val(), 10) || 500; }
+            };
+        }()),
+        defaultMapCenterLocation = preferences.mapCenterLatLng.get(), // Start with a default map center.
         getMapCenter = $.Deferred(function (dfd) {
             $.geocode.getIpLatLng().done(function (userLocation) {
                 dfd.resolve(userLocation);
@@ -24,14 +33,6 @@ $(function () {
             lng: 106.83397289999994
         }, // Antarctica
         currentMapMarkers = [],
-        options = (function () {
-            var $useSiteIcons = $("#use-site-icons"),
-                $maxMapMarkers = $("#max-marker-count");
-            return {
-                useSiteIcons: function () { return $useSiteIcons.is(":checked"); },
-                maxMapMarkers: function () { return parseInt($maxMapMarkers.val(), 10) || 500; }
-            };
-        } ()),
         useGeocodingFallback = false,
         infoWindowTemplate = $.template("infoWindowTemplate", $("#infoWindowTemplate")),
         $startPolling = $("#start-polling"),
@@ -96,7 +97,7 @@ $(function () {
                             markerOptions.location = locationForQuestion;
                             markerOptions.title = questionWithUser.title;
                             if (options.useSiteIcons() && siteInfo.iconSrc) {
-                                markerOptions.markerImage = new google.maps.MarkerImage(siteInfo.iconSrc, null, null, null, new google.maps.Size(24, 24));
+                                markerOptions.markerImage = new $.googleMaps.MarkerImage(siteInfo.iconSrc, null, null, null, { width: 24, height: 24 });
                                 markerOptions.markerImageShadow = null;
                                 markerOptions.icon = siteInfo.iconSrc;
                             }
@@ -149,7 +150,7 @@ $(function () {
                 hasPending: hasPending,
                 stopAll: stopAll
             };
-        } ()),
+        }()),
         stopPolling = function () {
             pollingUtility.stopAll();
             $startPolling.show();
@@ -174,32 +175,7 @@ $(function () {
                     }
                 });
             }
-        },
-        preferences = (function () {
-            var siteSelectionKey = "siteSelection",
-                getItem = function (key) {
-                    var result = null;
-                    if (localStorage && localStorage.getItem) {
-                        result = localStorage.getItem(key);
-                    }
-                    return result;
-                },
-                setItem = function (key, value) {
-                    if (localStorage && localStorage.setItem) {
-                        try {
-                            localStorage.setItem(key, value);
-                        } catch (e) {
-                            if (e == QUOTA_EXCEEDED_ERR && console && console.error) {
-                                console.error("`localStorage` quota exceeded.");
-                            }
-                        }
-                    }
-                };
-            return {
-                getSiteSelection: function () { return getItem(siteSelectionKey); },
-                setSiteSelection: function (value) { setItem(siteSelectionKey, value); }
-            };
-        } ());
+        };
 
     // Set Stack Exchange API app key for all requests.
     $.stackExchangeApi.typicalDefaults = $.extend($.stackExchangeApi.typicalDefaults, {
@@ -218,7 +194,7 @@ $(function () {
             modal: true,
             closeOnEscape: false,
             open: function () {
-                var savedSiteSelection = preferences.getSiteSelection(),
+                var savedSiteSelection = preferences.siteSelection.get(),
                     $this = $(this);
                 $(".ui-dialog-titlebar-close").hide();
                 $this.on("keyup.enter", function (e) {
@@ -244,7 +220,7 @@ $(function () {
                     siteIconSrc = $("label[for='" + siteFilter + "']").find("img").attr("src") || "http://sstatic.net/stackoverflow/img/apple-touch-icon.png",
                     siteAudience = $selectedSiteInput.data("site-audience"),
                     siteName = $selectedSiteInput.siblings("label").first().text();
-                preferences.setSiteSelection(siteFilter);
+                preferences.siteSelection.set(siteFilter);
                 startPolling({ filter: siteFilter, iconSrc: siteIconSrc, url: siteUrl, audience: siteAudience, name: siteName });
                 $(this).off("keyup.enter");
             }

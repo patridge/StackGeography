@@ -88,6 +88,7 @@
     <Content Include="scripts\jsrender.js" />
     <Content Include="scripts\main.js" />
     <Content Include="scripts\stackgeography.201201171142.min.js" />
+    <Content Include="scripts\jquery.stackgeography.preferences.js" />
     <Content Include="scripts\uri.js" />
     <Content Include="styles\main.201201101208.min.css" />
     <Content Include="styles\main.css" />
@@ -119,7 +120,7 @@
     <VisualStudio>
       <FlavorProperties GUID="{349c5851-65df-11da-9384-00065b846f21}">
         <WebProjectProperties>
-          <UseIIS>True</UseIIS>
+          <UseIIS>False</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>50245</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>

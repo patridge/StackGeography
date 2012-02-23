@@ -78,22 +78,39 @@ var googleMapsCallback; // Required for Google Maps API to call back when it thi
             mapTypeId: google.maps.MapTypeId.TERRAIN
         });
     };
-    $.googleMaps.MarkerImage = function (url, size, origin, anchor) {
-        return new google.maps.MarkerImage(url, new google.maps.Size(size.width, size.height), new google.maps.Point(origin.x, origin.y), new google.maps.Point(anchor.x, anchor.y));
+    $.googleMaps.MarkerImage = function (url, size, origin, anchor, scaledSize) {
+        var sizeObj = null,
+            originPoint = null,
+            anchorPoint = null,
+            scaledSizeObj = null;
+        if (size && size.width && size.height) {
+            sizeObj = new google.maps.Size(size.width, size.height);
+        }
+        if (origin && origin.x && origin.y) {
+            originPoint = new google.maps.Point(origin.x, origin.y);
+        }
+        if (anchor && anchor.x && anchor.y) {
+            anchorPoint = new google.maps.Point(anchor.x, anchor.y);
+        }
+        if (scaledSize && scaledSize.width && scaledSize.height) {
+            scaledSizeObj = new google.maps.Size(scaledSize.width, scaledSize.height);
+        }
+        //(siteInfo.iconSrc, null, null, null, new google.maps.Size(24, 24))
+        return new google.maps.MarkerImage(url, sizeObj, originPoint, anchorPoint, scaledSizeObj);
     };
     $.googleMaps.createMarker = function (options) {
         var marker,
             opts = $.extend({
                 title: ""
             }, $.googleMaps.createMarker.defaults, options);
-        
+
         if (!opts.location || !opts.location.lat || !opts.location.lng) {
             debug("Map marker creation failed: location not given.");
             return;
         }
         opts.position = new google.maps.LatLng(opts.location.lat, opts.location.lng);
         delete opts.location;
-        
+
         marker = new google.maps.Marker(opts);
 
         if (opts.markerImage) {
