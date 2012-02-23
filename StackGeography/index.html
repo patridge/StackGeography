@@ -24,15 +24,24 @@
 			<li><kbd>Esc</kbd> Cancel polling</li>
 			<li><kbd>S</kbd> Choose site...</li>
 			<li><kbd>O</kbd> Options...</li>
+			<li><kbd>P</kbd> Polling...</li>
 		</ul>
 	</div>
-	<div id="options" class="hidden">
-	</div>
+	<div id="options" class="hidden"></div>
 	<script type="text/x-jquery-tmpl" id="optionsTemplate">
 		<ul>
 			<li><input type="checkbox" id="use-site-icons" {{#if useSiteIcons}}checked="checked"{{/if}} /><label for="use-site-icons">Use site icons</label></li>
 			<li><input type="number" id="max-marker-count" value="{{=maxMapMarkers}}" /><label for="max-marker-count">Max markers</label></li>
 		</ul>
+	</script>
+	<div id="polling" class="hidden">
+		<ul></ul>
+		<p class="hidden">No pending polls</p>
+	</div>
+	<script type="text/x-jquery-tmpl" id="pollingTemplate">
+		{{#each}}
+			<li>{{=id}} <a href="#" class="cancel" data-poll-id={{=id}}>Cancel</a></li>
+		{{/each}}
 	</script>
 	<script type="text/x-jquery-tmpl" id="infoWindowTemplate">
 		<div class="info-window-content">

@@ -1,3 +1,4 @@
+Figure out how to allow esc on some jQueryUI dialogs without cancelling polling.
 Create server-side output-cache to SE API requests, especially sites (e.g., ASP.NET web cache proxy for SE API).
     Multiple site polling UI (script handling in place)
 Closure Compile main script file.
@@ -6,7 +7,6 @@ Offer about page with details and link to project code on GitHub and link to App
 When sending more than 100 IDs to $.stackExchangeApi.get*, chunk into rejoined 100-per requests (currently warning and splicing).
 Options:
   limit to tag, by site
-  max markers on map
   slider for polling rate (1 to ?)
   offer site list customization (stored to localStorage), with option to clear it
   clear current markers

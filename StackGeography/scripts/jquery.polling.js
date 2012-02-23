@@ -23,9 +23,22 @@
                         stopPending(pollId);
                     }
                 }
+            },
+            getQueueAsArray = function () {
+                var queue = [],
+                    queueItem;
+                for (queueItem in currentQueue) {
+                    if (currentQueue.hasOwnProperty(queueItem)) {
+                        queue[queue.length] = {
+                            id: queueItem,
+                            timeoutId: currentQueue[queueItem]
+                        };
+                    }
+                }
+                return queue;
             };
         return {
-            currentQueue: currentQueue, // for debugging
+            getCurrentQueue: getQueueAsArray, // for debugging
             stopPending: stopPending,
             queue: queue,
             hasPending: hasPending,

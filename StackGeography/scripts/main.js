@@ -11,6 +11,7 @@ $(function () {
         }),
         preferences = $.stackgeography.preferences,
         optionsTemplate = $.template("optionsTemplate", $("#optionsTemplate")),
+        $options = $("#options"),
         defaultMapCenterLocation = preferences.mapCenterLatLng.get(), // Start with a default map center.
         getMapCenter = $.Deferred(function (dfd) {
             $.geocode.getIpLatLng().done(function (userLocation) {
@@ -30,7 +31,8 @@ $(function () {
         infoWindowTemplate = $.template("infoWindowTemplate", $("#infoWindowTemplate")),
         $startPolling = $("#start-polling"),
         $stopPolling = $("#stop-polling"),
-        $options = $("#options"),
+        pollingTemplate = $.template("pollingTemplate", $("#pollingTemplate")),
+        $polling = $("#polling"),
         keepPolling = true,
         pollingWait = 60000,
         hasMapMarker = function (id) {
@@ -117,7 +119,7 @@ $(function () {
         },
         failCount = 0,
         maxFailCount = 5,
-        stopPolling = function () {
+        stopAllPolling = function () {
             $.polling.stopAll();
             $startPolling.show();
             $stopPolling.hide();
@@ -149,11 +151,10 @@ $(function () {
         filter: stackExchangeApiFilter
     });
     $stopPolling.click(function (e) {
-        stopPolling();
+        stopAllPolling();
         e.preventDefault();
     });
     $startPolling.click(function (e) {
-        stopPolling();
         failCount = 0;
         $("#site-selection").dialog({
             title: "Pick a site",
@@ -193,10 +194,7 @@ $(function () {
         });
         e.preventDefault();
     });
-    $(document).bind("keydown", "esc", function () {
-        stopPolling();
-        // NOTE: Not explicitly cancelling event propagation here.
-    });
+    $(document).bind("keydown", "esc", stopAllPolling);
     $(document).bind("keyup", "s", function (e) {
         $startPolling.click();
         e.preventDefault();
@@ -206,16 +204,33 @@ $(function () {
                 useSiteIcons: $.stackgeography.preferences.useSiteIcons.get(),
                 maxMapMarkers: $.stackgeography.preferences.maxMapMarkers.get()
             },
-            optionsHtml = $.render(prefs, optionsTemplate);
+            optionsHtml = $.render(prefs, optionsTemplate),
+            savePreferences = function () {
+                var newUseSiteIcons = $options.find("#use-site-icons").is(":checked"),
+                    newMaxMapMarkers = $options.find("#max-marker-count").val(),
+                    markersToRemove,
+                    markerIndex;
+                preferences.useSiteIcons.set(newUseSiteIcons);
+                if (newMaxMapMarkers > 0) {
+                    preferences.maxMapMarkers.set(newMaxMapMarkers);
+                    if (newMaxMapMarkers < currentMapMarkers.length) {
+                        // Reducing max: yank any old markers until we meet the new max.
+                        markersToRemove = currentMapMarkers.splice(0, currentMapMarkers.length - newMaxMapMarkers);
+                        for (markerIndex = markersToRemove.length - 1; markerIndex >= 0; markerIndex -= 1) {
+                            markersToRemove[markerIndex].clearFromMap();
+                        }
+                    }
+                }
+            };
         $options.html(optionsHtml);
         $options.dialog({
             title: "Options",
             modal: true,
             closeOnEscape: false,
             open: function () {
-                $(".ui-dialog-titlebar-close").hide();
                 $(this).on("keyup.enter", function (e) {
                     if (e.keyCode === $.ui.keyCode.ENTER) {
+                        savePreferences();
                         $(this).dialog("close");
                         e.preventDefault();
                     }
@@ -231,21 +246,54 @@ $(function () {
 					$(this).dialog("close");
 				},
                 "Save": function () {
-                    var newUseSiteIcons = $options.find("#use-site-icons").is(":checked"),
-                        newMaxMapMarkers = $options.find("#max-marker-count").val(),
-                        markersToRemove,
-                        markerIndex;
-                    preferences.useSiteIcons.set(newUseSiteIcons);
-                    if (newMaxMapMarkers > 0) {
-                        preferences.maxMapMarkers.set(newMaxMapMarkers);
-                        if (newMaxMapMarkers < currentMapMarkers.length) {
-                            // Reducing max: yank any old markers until we meet the new max.
-                            markersToRemove = currentMapMarkers.splice(0, currentMapMarkers.length - newMaxMapMarkers);
-                            for (markerIndex = markersToRemove.length - 1; markerIndex >= 0; markerIndex -= 1) {
-                                markersToRemove[markerIndex].clearFromMap();
-                            }
-                        }
+                    savePreferences();
+                    $(this).dialog("close");
+                }
+            }
+        });
+        e.preventDefault();
+    });
+    $(document).bind("keyup", "p", function (e) {
+        var currentPolls = $.polling.getCurrentQueue(),
+            $dialogHtml;
+        if (currentPolls.length > 0) {
+            $polling.find("p").hide();
+            $dialogHtml = $($.render(currentPolls, pollingTemplate));
+            $dialogHtml.on("click.pollingcancel", "a.cancel", function (e) {
+                var $this = $(this);
+                $.polling.stopPending($this.data("poll-id"));
+                $this.parent("li").remove();
+                if ($polling.find("li").length === 0) {
+                    $polling.find("p").show();
+                }
+                e.preventDefault();
+            });
+            $polling.find("ul").remove("li").html($dialogHtml);
+        } else {
+            $polling.find("p").show();
+        }
+        $polling.dialog({
+            title: "Polling",
+            modal: true,
+            closeOnEscape: false,
+            open: function () {
+                $(this).on("keyup.enter", function (e) {
+                    if (e.keyCode === $.ui.keyCode.ENTER) {
+                        $(this).dialog("close");
+                        e.preventDefault();
                     }
+                });
+            },
+            close: function () {
+                $dialogHtml.off("click.pollingcancel");
+            },
+            height: 350,
+            buttons: {
+                "Cancel All": function () {
+                    stopAllPolling();
+					$(this).dialog("close");
+				},
+                "Close": function () {
                     $(this).dialog("close");
                 }
             }
