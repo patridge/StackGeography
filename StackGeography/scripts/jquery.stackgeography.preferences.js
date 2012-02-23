@@ -11,41 +11,42 @@
     $.stackgeography = $.stackgeography || {};
     $.stackgeography.preferences = (function () {
         var Preference = function (key, defaultValue) {
-            var getItem = function (key) {
-                    var result = defaultValue,
-                        json;
-                    if (localStorage && localStorage.getItem) {
-                        json = localStorage.getItem(key);
-                        if (null !== json) {
+                var getItem = function (key) {
+                        var result = defaultValue,
+                            json;
+                        if (localStorage && localStorage.getItem) {
+                            json = localStorage.getItem(key);
+                            if (null !== json) {
+                                try {
+                                    result = JSON.parse(json);
+                                } catch (e) {
+                                    localStorage.removeItem(key);
+                                }
+                            }
+                        }
+                        return result;
+                    },
+                    setItem = function (key, value) {
+                        var json = JSON.stringify(value);
+                        if (localStorage && localStorage.setItem) {
                             try {
-                                result = JSON.parse(json);
+                                localStorage.setItem(key, json);
                             } catch (e) {
-                                localStorage.removeItem(key);
+                                if (e === QUOTA_EXCEEDED_ERR && console && console.error) {
+                                    console.error("`localStorage` quota exceeded.");
+                                }
                             }
                         }
-                    }
-                    return result;
-                },
-                setItem = function (key, value) {
-                    var json = JSON.stringify(value);
-                    if (localStorage && localStorage.setItem) {
-                        try {
-                            localStorage.setItem(key, json);
-                        } catch (e) {
-                            if (e === QUOTA_EXCEEDED_ERR && console && console.error) {
-                                console.error("`localStorage` quota exceeded.");
-                            }
-                        }
-                    }
-                },
-                preference = {
-                    key: key,
-                    get: function () { return getItem(key); },
-                    set: function (value) { setItem(key, value); }
-                };
-            return preference;
-        };
+                    },
+                    preference = {
+                        key: key,
+                        get: function () { return getItem(key); },
+                        set: function (value) { setItem(key, value); }
+                    };
+                return preference;
+            };
         return {
+            reset: function () { localStorage.clear(); },
             maxMapMarkers: new Preference("maxMapMarkers", 500),
             siteSelection: new Preference("siteSelection", "stackoverflow"),
             useSiteIcons: new Preference("useSiteIcons", true),

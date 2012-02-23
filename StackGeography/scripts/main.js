@@ -223,6 +223,10 @@ $(function () {
             },
             height: 350,
             buttons: {
+                "Reset": function () {
+                    preferences.reset();
+                    $(this).dialog("close");
+                },
                 "Cancel": function () {
 					$(this).dialog("close");
 				},
