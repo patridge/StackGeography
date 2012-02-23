@@ -117,42 +117,14 @@ $(function () {
         },
         failCount = 0,
         maxFailCount = 5,
-        pollingUtility = (function () {
-            var currentQueue = {},
-                stopPending = function (id) {
-                    if (currentQueue[id]) {
-                        clearTimeout(currentQueue[id]);
-                        delete currentQueue[id];
-                    }
-                },
-                queue = function (id, action, wait) {
-                    stopPending(id);
-                    currentQueue[id] = setTimeout(action, wait);
-                },
-                hasPending = function (id) {
-                    return currentQueue[id];
-                },
-                stopAll = function () {
-                    $.each(currentQueue, function (pollId) {
-                        stopPending(pollId);
-                    });
-                };
-            return {
-                currentQueue: currentQueue, // for debugging
-                stopPending: stopPending,
-                queue: queue,
-                hasPending: hasPending,
-                stopAll: stopAll
-            };
-        }()),
         stopPolling = function () {
-            pollingUtility.stopAll();
+            $.polling.stopAll();
             $startPolling.show();
             $stopPolling.hide();
         },
         startPolling = function (siteInfo) {
             if (map) {
-                pollingUtility.stopPending(siteInfo.filter);
+                $.polling.stopPending(siteInfo.filter);
                 keepPolling = true;
                 $startPolling.hide();
                 $stopPolling.show();
@@ -160,12 +132,12 @@ $(function () {
                 markLatestQuestionsOnMap(siteInfo).always(function () {
                     if (keepPolling) {
                         // pollingUtility.queue will take care of clearning any existing poll for this site.
-                        pollingUtility.queue(siteInfo.filter, function () { startPolling(siteInfo); }, pollingWait);
+                        $.polling.queue(siteInfo.filter, function () { startPolling(siteInfo); }, pollingWait);
                     }
                 }).fail(function () {
                     failCount += 1;
                     if (failCount >= maxFailCount) {
-                        pollingUtility.stopPending(siteInfo.filter);
+                        $.polling.stopPending(siteInfo.filter);
                     }
                 });
             }

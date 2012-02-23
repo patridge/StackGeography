@@ -83,6 +83,7 @@
     <Content Include="scripts\jquery.googlemaps.js" />
     <Content Include="scripts\jquery.hotkeys.js" />
     <Content Include="scripts\jquery.jsonp-2.2.0.min.js" />
+    <Content Include="scripts\jquery.polling.js" />
     <Content Include="scripts\jquery.stackExchangeApi.js" />
     <Content Include="scripts\JSLINQ.js" />
     <Content Include="scripts\jsrender.js" />
