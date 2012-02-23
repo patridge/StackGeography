@@ -74,6 +74,7 @@
     <Content Include="images\apple-touch-icon.png" />
     <Content Include="images\favicon.ico" />
     <Content Include="images\screenshot.png" />
+    <Content Include="images\screenshot2.png" />
     <Content Include="images\stachexchangemapmarker.png" />
     <Content Include="images\stackapps_logo.png" />
     <Content Include="index.html" />
