@@ -48,6 +48,7 @@
         return {
             reset: function () { localStorage.clear(); },
             maxMapMarkers: new Preference("maxMapMarkers", 500),
+            staggerMapMarkerPlacement: new Preference("staggerMapMarkerPlacement", true),
             siteSelection: new Preference("siteSelection", "stackoverflow"),
             useSiteIcons: new Preference("useSiteIcons", true),
             mapCenterLatLng: new Preference("mapCenterLatLng", { lat: 200, lng: 0 }),

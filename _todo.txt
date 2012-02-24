@@ -1,13 +1,11 @@
 Figure out how to allow esc on some jQueryUI dialogs without cancelling polling.
 Create server-side output-cache to SE API requests, especially sites (e.g., ASP.NET web cache proxy for SE API).
 Closure Compile main script file.
-Stagger marker placement/animation (deferred chaining, ideally) (with option to disable).
 Offer about page with details and link to project code on GitHub and link to AppHarbor for the free hosting.
 When sending more than 100 IDs to $.stackExchangeApi.get*, chunk into rejoined 100-per requests (currently warning and splicing).
 Options:
   limit to tag, by site
   slider for polling rate (1 to ?)
-  offer site list customization (stored to localStorage), with option to clear it
   clear current markers
 Keyboard shortcuts
   [some key]: poll current site now (with debounce, http://benalman.com/projects/jquery-throttle-debounce-plugin/)

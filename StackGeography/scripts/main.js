@@ -78,11 +78,14 @@ $(function () {
 
                 getLocationCoords.done(function (data) {
                     var locations = data.results,
-                        currentMaxMapMarkers = preferences.maxMapMarkers.get();
+                        currentMaxMapMarkers = preferences.maxMapMarkers.get(),
+                        staggerMapMarkerPlacement = preferences.staggerMapMarkerPlacement.get(),
+                        i = 0;
                     questionsWithUsers.Each(function (questionWithUser) {
                         var locationForQuestion = null,
                             markerOptions = {},
-                            marker;
+                            marker,
+                            placeMarker;
                         if (questionUserHasLocation(questionWithUser)) {
                             locationForQuestion = locations[questionWithUser.user.location.toUpperCase()] || null;
                         }
@@ -99,16 +102,24 @@ $(function () {
                             }
                             marker = $.googleMaps.createMarker(markerOptions);
                             marker.id = questionWithUser.question_id;
-                            marker.placeOnMap(map, {
-                                infoWindowHtml: $.render($.extend(questionWithUser, { site: siteInfo }), infoWindowTemplate),
-                                infoWindowMaxWidth: 250
-                            });
+                            placeMarker = function () {
+                                marker.placeOnMap(map, {
+                                    infoWindowHtml: $.render($.extend(questionWithUser, { site: siteInfo }), infoWindowTemplate),
+                                    infoWindowMaxWidth: 250
+                                });
+                            };
+                            if (staggerMapMarkerPlacement) {
+                                setTimeout(placeMarker, i * 200);
+                            } else {
+                                placeMarker();
+                            }
                             currentMapMarkers[currentMapMarkers.length] = marker;
                             if (currentMapMarkers.length > currentMaxMapMarkers && currentMapMarkers[0]) {
                                 currentMapMarkers[0].clearFromMap();
                                 currentMapMarkers.splice(0, 1);
                             }
                         }
+                        i += 1;
                     });
                     // Only update latest question date if all goes well.
                     latestQuestionCreationDate[siteInfo.filter] = !latestQuestionCreationDate[siteInfo.filter] || latestQuestionCreationDate[siteInfo.filter] < newestQuestionCreationDate ? newestQuestionCreationDate : latestQuestionCreationDate[siteInfo.filter];
@@ -211,16 +222,19 @@ $(function () {
     });
     $(document).bind("keyup", "o", function (e) {
         var prefs = {
-                useSiteIcons: $.stackgeography.preferences.useSiteIcons.get(),
-                maxMapMarkers: $.stackgeography.preferences.maxMapMarkers.get()
+                useSiteIcons: preferences.useSiteIcons.get(),
+                maxMapMarkers: preferences.maxMapMarkers.get(),
+                staggerMapMarkerPlacement: preferences.staggerMapMarkerPlacement.get(),
             },
             optionsHtml = $.render(prefs, optionsTemplate),
             savePreferences = function () {
                 var newUseSiteIcons = $options.find("#use-site-icons").is(":checked"),
                     newMaxMapMarkers = $options.find("#max-marker-count").val(),
+                    newStaggerMapMarkerPlacement = $options.find("#stagger-map-marker-placement").is(":checked"),
                     markersToRemove,
                     markerIndex;
                 preferences.useSiteIcons.set(newUseSiteIcons);
+                preferences.staggerMapMarkerPlacement.set(newStaggerMapMarkerPlacement);
                 if (newMaxMapMarkers > 0) {
                     preferences.maxMapMarkers.set(newMaxMapMarkers);
                     if (newMaxMapMarkers < currentMapMarkers.length) {
