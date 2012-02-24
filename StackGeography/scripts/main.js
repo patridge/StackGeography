@@ -161,7 +161,7 @@ $(function () {
             modal: true,
             closeOnEscape: false,
             open: function () {
-                var savedSiteSelection = preferences.siteSelection.get(),
+                var savedSiteSelections = preferences.siteSelection.get().split(","),
                     $this = $(this);
                 $(".ui-dialog-titlebar-close").hide();
                 $this.on("keyup.enter", function (e) {
@@ -170,8 +170,10 @@ $(function () {
                         e.preventDefault();
                     }
                 });
-                $("#" + savedSiteSelection).attr("checked", "checked");
-                $this.find("input[name='sites']:checked").focus();
+                $.each(savedSiteSelections, function (i, val) {
+                    $("#" + val).attr("checked", "checked");
+                });
+                $this.find("input[name='sites']:checked").first().focus();
             },
             height: 350,
             buttons: [
@@ -181,14 +183,22 @@ $(function () {
                 }
             ],
             close: function () {
-                var $selectedSiteInput = $("input[name='sites']:checked"),
-                    siteFilter = $selectedSiteInput.val() || "stackoverflow",
-                    siteUrl = $selectedSiteInput.data("site-url") || "www.stackoverflow.com",
-                    siteIconSrc = $("label[for='" + siteFilter + "']").find("img").attr("src") || "http://sstatic.net/stackoverflow/img/apple-touch-icon.png",
-                    siteAudience = $selectedSiteInput.data("site-audience"),
-                    siteName = $selectedSiteInput.siblings("label").first().text();
-                preferences.siteSelection.set(siteFilter);
-                startPolling({ filter: siteFilter, iconSrc: siteIconSrc, url: siteUrl, audience: siteAudience, name: siteName });
+                var selectedSiteInfos = [],
+                    selectedSiteIds = [];
+                $("input[name='sites']:checked").each(function () {
+                    var $this = $(this),
+                        siteFilter = $this.val() || "stackoverflow",
+                        siteUrl = $this.data("site-url") || "www.stackoverflow.com",
+                        siteIconSrc = $("label[for='" + siteFilter + "']").find("img").attr("src") || "http://sstatic.net/stackoverflow/img/apple-touch-icon.png",
+                        siteAudience = $this.data("site-audience"),
+                        siteName = $this.siblings("label").first().text();
+                    selectedSiteIds.push(siteFilter);
+                    selectedSiteInfos.push({ filter: siteFilter, iconSrc: siteIconSrc, url: siteUrl, audience: siteAudience, name: siteName });
+                });
+                preferences.siteSelection.set(selectedSiteIds.join(","));
+                $.each(selectedSiteInfos, function (i, val) {
+                    startPolling(val);
+                });
                 $(this).off("keyup.enter");
             }
         });
