@@ -216,6 +216,14 @@ $(function () {
         e.preventDefault();
     });
     $(document).bind("keydown", "esc", stopAllPolling);
+    $(document).bind("keyup", "#", function (e) {
+        var i = currentMapMarkers.length - 1;
+        for (; i >= 0; i -= 1) {
+            currentMapMarkers[i].clearFromMap();
+        }
+        currentMapMarkers = [];
+        e.preventDefault();
+    });
     $(document).bind("keyup", "s", function (e) {
         $startPolling.click();
         e.preventDefault();

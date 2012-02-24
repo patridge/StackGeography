@@ -6,9 +6,7 @@ When sending more than 100 IDs to $.stackExchangeApi.get*, chunk into rejoined 1
 Options:
   limit to tag, by site
   slider for polling rate (1 to ?)
-  clear current markers
 Keyboard shortcuts
   [some key]: poll current site now (with debounce, http://benalman.com/projects/jquery-throttle-debounce-plugin/)
-  [some key]: clear markers
 Offer authentication to boost per-user quota.
 Fix: Mac OS X Lion Safari vertical scrollbar issue (https://github.com/patridge/StackGeography/issues/1).
