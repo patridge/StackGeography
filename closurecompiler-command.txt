@@ -4,10 +4,12 @@
 // @code_url http://www.stackgeography.com/scripts/jquery-ui-1.8.16.custom.min.js
 // @code_url http://www.stackgeography.com/scripts/jquery.googlemaps.js
 // @code_url http://www.stackgeography.com/scripts/jquery.geocode.js
+// @code_url http://www.stackgeography.com/scripts/jquery.polling.js
 // @code_url http://www.stackgeography.com/scripts/jquery.stackExchangeApi.js
 // @code_url http://www.stackgeography.com/scripts/JSLINQ.js
 // @code_url http://www.stackgeography.com/scripts/jquery.hotkeys.js
 // @code_url http://www.stackgeography.com/scripts/jquery.jsonp-2.2.0.min.js
 // @code_url http://www.stackgeography.com/scripts/jsrender.js
 // @code_url http://www.stackgeography.com/scripts/uri.js
+// @code_url http://www.stackgeography.com/scripts/jquery.stackgeography.preferences.js
 // ==/ClosureCompiler==
