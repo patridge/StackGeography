@@ -53,6 +53,7 @@
             useSiteIcons: new Preference("useSiteIcons", true),
             mapCenterLatLng: new Preference("mapCenterLatLng", { lat: 200, lng: 0 }),
             useFallbackLatLng: new Preference("useFallbackLatLng", false),
+            allowMetaSites: new Preference("allowMetaSites", false),
             fallbackLatLng: new Preference("fallbackLatLng", {
                 lat: -78.4644915,
                 lng: 106.83397289999994

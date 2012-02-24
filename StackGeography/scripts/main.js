@@ -154,6 +154,22 @@ $(function () {
                     }
                 });
             }
+        },
+        loadSiteSelection = function () {
+            var getAllSites = $.stackExchangeApi.getAllSitesWithMultipleRequests({ pagesize: 100 }),
+                displaySites = $.Deferred(function (dfd) {
+                    getAllSites.done(function (data) {
+                        var allowMetaSites = preferences.allowMetaSites.get(),
+                            siteItems = JSLINQ(data).Where(function (site) {
+                                return allowMetaSites || site.site_type !== "meta_site";
+                            }),
+                            $siteCheckboxes = $($("#siteCheckboxesTemplate").render(siteItems.ToArray()));
+                        $siteCheckboxes.first().find("input").attr("checked", "checked");
+                        $("#sites").html($siteCheckboxes);
+                        dfd.resolve();
+                    }).fail(dfd.reject);
+                }).promise();
+            return displaySites
         };
 
     // Set Stack Exchange API app key for all requests.
@@ -233,15 +249,21 @@ $(function () {
                 useSiteIcons: preferences.useSiteIcons.get(),
                 maxMapMarkers: preferences.maxMapMarkers.get(),
                 staggerMapMarkerPlacement: preferences.staggerMapMarkerPlacement.get(),
+                allowMetaSites: preferences.allowMetaSites.get()
             },
             optionsHtml = $.render(prefs, optionsTemplate),
             savePreferences = function () {
                 var newUseSiteIcons = $options.find("#use-site-icons").is(":checked"),
                     newMaxMapMarkers = $options.find("#max-marker-count").val(),
                     newStaggerMapMarkerPlacement = $options.find("#stagger-map-marker-placement").is(":checked"),
+                    newAllowMetaSites = $options.find("#allow-meta-sites").is(":checked"),
                     markersToRemove,
                     markerIndex;
                 preferences.useSiteIcons.set(newUseSiteIcons);
+                if (prefs.allowMetaSites !== newAllowMetaSites) {
+                    preferences.allowMetaSites.set(newAllowMetaSites);
+                    loadSiteSelection();
+                }
                 preferences.staggerMapMarkerPlacement.set(newStaggerMapMarkerPlacement);
                 if (newMaxMapMarkers > 0) {
                     preferences.maxMapMarkers.set(newMaxMapMarkers);
@@ -366,14 +388,7 @@ $(function () {
         });
         $.googleMaps.createMarker.defaults.markerImage = $.googleMaps.MarkerImage("/images/stachexchangemapmarker.png", { width: 19, height: 34 }, { x: 0, y: 0 }, { x: 9, y: 34 });
         $.googleMaps.createMarker.defaults.markerImageShadow = $.googleMaps.MarkerImage("/images/stachexchangemapmarker.png", { width: 29, height: 34 }, { x: 28, y: 0 }, { x: 0, y: 34 });
-        $.stackExchangeApi.getAllSitesWithMultipleRequests({ pagesize: 100 }).done(function (data) {
-            // NOTE: currently omitting meta sites.
-            var siteItems = JSLINQ(data).Where(function (site) {
-                    return site.site_type !== "meta_site";
-                }),
-                $siteCheckboxes = $($("#siteCheckboxesTemplate").render(siteItems.ToArray()));
-            $siteCheckboxes.first().find("input").attr("checked", "checked");
-            $("#sites").html($siteCheckboxes);
+        loadSiteSelection().done(function () {
             $startPolling.click();
         });
     });
