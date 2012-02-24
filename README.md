@@ -45,6 +45,12 @@ I started everything in [jsFiddle](http://jsfiddle.net). After exactly 337 revis
 
 ###Release Notes
 
+####2012-02-24
+
+* Ability to poll meta Stack Exchange sites, defaults to omit to keep site list shorter (toggle via saved option).
+* Marker placement can be staggered via saved option.
+* Clear map markers via <kbd>#</kbd> (known issue with clearing while staggered placement is ongoing).
+
 ####2012-02-23
 
 * **Polling multiple sites concurrently!** The UI still needs work, but if you return to site selection by pressing <kbd>S</kbd>, you can keep adding sites to poll.
