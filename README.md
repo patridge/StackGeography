@@ -49,7 +49,7 @@ I started everything in [jsFiddle](http://jsfiddle.net). After exactly 337 revis
 
 * Ability to poll meta Stack Exchange sites, defaults to omit to keep site list shorter (toggle via saved option).
 * Marker placement can be staggered via saved option.
-* Clear map markers via <kbd>#</kbd> (known issue with clearing while staggered placement is ongoing).
+* Clear map markers via <kbd>#</kbd>.
 
 ####2012-02-23
 
