@@ -107,16 +107,16 @@ $(function () {
                                     infoWindowHtml: $.render($.extend(questionWithUser, { site: siteInfo }), infoWindowTemplate),
                                     infoWindowMaxWidth: 250
                                 });
+                                currentMapMarkers[currentMapMarkers.length] = marker;
+                                if (currentMapMarkers.length > currentMaxMapMarkers && currentMapMarkers[0]) {
+                                    currentMapMarkers[0].clearFromMap();
+                                    currentMapMarkers.splice(0, 1);
+                                }
                             };
                             if (staggerMapMarkerPlacement) {
                                 setTimeout(placeMarker, i * 200);
                             } else {
                                 placeMarker();
-                            }
-                            currentMapMarkers[currentMapMarkers.length] = marker;
-                            if (currentMapMarkers.length > currentMaxMapMarkers && currentMapMarkers[0]) {
-                                currentMapMarkers[0].clearFromMap();
-                                currentMapMarkers.splice(0, 1);
                             }
                         }
                         i += 1;
