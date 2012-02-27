@@ -90,7 +90,8 @@
     <Content Include="scripts\jsrender.js" />
     <Content Include="scripts\main.js" />
     <Content Include="scripts\jquery.stackgeography.preferences.js" />
-    <Content Include="scripts\stackgeography.201202232117.min.js" />
+    <Content Include="scripts\stackgeography.201202270750.min.js" />
+    <Content Include="scripts\stackgeography.full.201202270800.min.js" />
     <Content Include="scripts\uri.js" />
     <Content Include="styles\main.201201101208.min.css" />
     <Content Include="styles\main.css" />
