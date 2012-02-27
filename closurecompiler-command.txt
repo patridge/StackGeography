@@ -12,4 +12,5 @@
 // @code_url http://www.stackgeography.com/scripts/jsrender.js
 // @code_url http://www.stackgeography.com/scripts/uri.js
 // @code_url http://www.stackgeography.com/scripts/jquery.stackgeography.preferences.js
+// @code_url http://www.stackgeography.com/scripts/main.js
 // ==/ClosureCompiler==
