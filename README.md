@@ -2,7 +2,7 @@
 
 StackGeography is the code behind [stackgeography.apphb.com](http://stackgeography.apphb.com/). StackGeography is a mapping of recent question from [Stack Exchange API][1] sites on a [Google Maps API][2] map. All Stack Exchange sites are capable of being polled, though the current selection system filters out the corresponding "Meta *" sites to keep the list from being so long.
 
-###Newly Added
+### Newly Added
 
 * Multiple site polling concurrently
 * Per-site icons
